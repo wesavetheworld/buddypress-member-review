@@ -1,12 +1,20 @@
+
+jQuery(window).load(function(){
+var a = jQuery('#bupr_mm').val();
+if(a == 1){
+jQuery('#bupr_success_review p').css('display' , 'block');
+jQuery('#bupr_success_review p').show();
+}
+});
+
 jQuery(document).ready(function(){
+
 	/***jQuery('#bp-member-reviews-list').DataTable({
 		"language": {
 			"emptyTable" : "No Reviews Added Yet!"
 		}
 	}); **/
-    jQuery('#bupr_save_review').click(function(){
-
-    });
+    
 
 	jQuery('.dataTables_filter input[type="search"]').attr('placeholder','Enter Keywords....');
 
@@ -102,7 +110,33 @@ jQuery(document).ready(function(){
                         }
                 );
         });
-        
+
+        // update review point in header
+         jQuery(document).on('click', '#bupr_save_review', function(){  
+            var member_id = jQuery('#bupr_member_review_id').val();
+            var review_title = jQuery('#review_subject').val(); 
+            var review_rating = {};
+            
+            jQuery('.bupr-star-member-rating').each( function(index) {
+                review_rating[index] = jQuery(this).val();
+            });
+
+            jQuery.post(
+                ajaxurl,
+                        {
+                        'action'            : 'allow_bupr_member_review_update',
+                        'bupr_member_id'    : member_id, 
+                        'bupr_review_title' : review_title,
+                        'bupr_review_desc'  : review_desc, 
+                        'bupr_review_rating': review_rating                                      
+                        },
+                        function(response) {
+                                      
+                        }
+                );
+        });
+
+
         // Delete review
         jQuery(document).on('click', '.bupr-remove-review-button', function(){
             var remove_review_id = jQuery(this).next().val();  

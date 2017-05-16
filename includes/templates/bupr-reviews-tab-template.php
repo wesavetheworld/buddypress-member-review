@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
     global $bp,$post;
+
     $bupr_review_succes = false;
     $current_user   = wp_get_current_user();
     $member_id      = $current_user->ID; 
@@ -14,47 +15,6 @@ defined( 'ABSPATH' ) || exit;
         $allow_popup              = $bupr_admin_settings['add_review_allow_popup'];
         $profile_reviews_per_page = $bupr_admin_settings['profile_reviews_per_page'];
         $profile_rating_fields    = $bupr_admin_settings['profile_rating_fields']; 
-    }
-
-    //Submit Review
-    if( isset( $_POST['submit-review'] ) && wp_verify_nonce( $_POST['security-nonce'], 'save-bp-member-review' ) ) {
-        
-        $review_subject  = sanitize_text_field( $_POST['review-subject'] );
-        $review_desc     = sanitize_text_field( $_POST['review-desc'] );
-        $bupr_memberID     = sanitize_text_field( $_POST['bupr_member_id'] );
-        
-        if(!empty($bupr_memberID) && $bupr_memberID != 0){
-            if(!empty($_POST['member_rated_stars'])){
-                $profile_rated_field_values = array_map('sanitize_text_field', wp_unslash($_POST['member_rated_stars']));
-            }
-
-            if(!empty($profile_rating_fields)):
-                $rated_stars    = array_combine($profile_rating_fields,$profile_rated_field_values);
-            endif;
-
-            $add_review_args = array(
-                'post_type'     => 'review',
-                'post_title'    => $review_subject,
-                'post_content'  => $review_desc,
-                'post_status'   => 'publish'
-            );
-
-            $review_id = wp_insert_post( $add_review_args );
-
-            if($review_id){
-                $bupr_review_succes = true;
-                $pubr_review_msg = 'Successfully ! Review added';
-            }else{
-                $pubr_review_msg = 'Sorry! Review not added';
-            }
-
-            wp_set_object_terms( $review_id, 'BP Member', 'review_category' );  
-            update_post_meta( $review_id, 'linked_bp_member', $bupr_memberID);
-
-            if(!empty($rated_stars)):
-                update_post_meta( $review_id, 'profile_star_rating', $rated_stars );
-            endif;
-        } 
     }
 
     if(empty($profile_reviews_per_page)){
@@ -81,7 +41,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
     <div class="bupr-bp-member-reviews-block">
-        <div class="reviews-header">
+        <div class="reviews-header" id="add_more_review">
             <p>
                 <?php _e('Reviews' , 'bp-group-reviews'); 
                 if( $allow_popup == 'yes' ) { ?>
@@ -95,15 +55,9 @@ defined( 'ABSPATH' ) || exit;
                 } ?>
             </p>
         </div>
-
-        <?php 
-        if(!empty($bupr_review_succes) && $bupr_review_succes == true){ ?>
-            <div id="message" class="info isdismiss">
-            <?php _e('<p>'. $pubr_review_msg .'</p>' , BUPR_PLUGIN_URL); ?>
-            </div><?php
-        }
-
-        ?>
+        <!-- -->
+       
+         <!-- -->
         <?php 
         if( $allow_popup == 'no' ) { ?>
         <!-- ADD REVIEW IF NO POPUP -->

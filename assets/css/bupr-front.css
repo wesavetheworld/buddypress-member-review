@@ -101,3 +101,6 @@
     margin-left:3px;
 }
 
+#bupr_success_review p{
+    display:none;
+}

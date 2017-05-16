@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress User Profile Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
- * Description: This plugin allows site members to add reviews to the buddypress member's profiles on the site.
+ * Description: This plugin allows site visitors to add reviews to the user's profiles on the site.
  * Version: 1.0.0
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
@@ -68,9 +68,9 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 				'includes/bupr-scripts.php',
 				'admin/bupr-admin.php',
 				'includes/bupr-filters.php',
-				'includes/bupr-ajax.php',
 				'includes/bupr-shortcodes.php',
-				'includes/widgets/display-review.php'
+				'includes/widgets/display-review.php',
+				'includes/bupr-ajax.php'
 			);
 			foreach($include_files as $include_file) include $include_file;
 		}
@@ -106,3 +106,4 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 		);
 		return array_merge($links, $page_link);
 	}
+

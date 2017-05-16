@@ -19,6 +19,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 delete_option('bupr_admin_settings'); 
 
+/*file_exists("test.txt");
 function bupr_delete_review() {
 
     $mrlpt_client_posts = get_posts( array(
@@ -48,4 +49,4 @@ function bupr_unregister_post_type( $post_type ) {
 }
 endif;
 
-add_action('init', 'bupr_unregister_post_type');
+add_action('init', 'bupr_unregister_post_type');*/

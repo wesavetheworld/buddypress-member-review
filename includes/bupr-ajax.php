@@ -25,6 +25,9 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			add_action( 'wp_ajax_nopriv_bupr_accept_review', array( $this, 'bupr_accept_review' ) );
 			add_action( 'wp_ajax_bupr_deny_review', array( $this, 'bupr_deny_review' ) );
 			add_action( 'wp_ajax_nopriv_bupr_deny_review', array( $this, 'bupr_deny_review' ) );
+
+			add_action( 'wp_ajax_allow_bupr_member_review_update', array( $this, 'wp_allow_bupr_my_member' ) );
+			add_action( 'wp_ajax_nopriv_allow_bupr_member_review_update', array( $this, 'wp_allow_bupr_my_member' ) );	
 		}
 
 		/**
@@ -81,6 +84,62 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			wp_trash_post( $post_id ); 
 			die;
 		}
+
+
+		 function wp_allow_bupr_my_member(){
+			if(isset( $_POST['action'] ) && $_POST['action'] == 'allow_bupr_member_review_update') {
+		        
+				$review_subject  = sanitize_text_field( $_POST['bupr_review_title'] );
+				$review_desc     = sanitize_text_field( $_POST['bupr_review_desc'] );
+				$bupr_memberID   = sanitize_text_field( $_POST['bupr_member_id'] );
+				$review_count     = sanitize_text_field( $_POST['bupr_field_counter'] ); 
+
+		        $profile_rated_field_values = array_map('sanitize_text_field', wp_unslash($_POST['bupr_review_rating']));
+
+			    /*if(!empty($bupr_memberID) && $bupr_memberID != 0){
+			        if(!empty($_POST['bupr_review_rating'])){
+			            
+			        }
+			        $a = count($profile_rated_field_values);
+
+			    
+			        die;
+			        if(!empty($profile_rating_fields)):
+			            $rated_stars    = array_combine($profile_rating_fields,$profile_rated_field_values);
+			        endif;
+
+			        $add_review_args = array(
+			            'post_type'     => 'review',
+			            'post_title'    => $review_subject,
+			            'post_content'  => $review_desc,
+			            'post_status'   => 'publish'
+			        );
+
+			        $review_id = wp_insert_post( $add_review_args );
+			        if($review_id){
+			        	$bupr_msg = 'Review added Successfully..';
+			        	$bupr_flag = true;
+			        	$this->bupr_review_message($bupr_flag , $bupr_msg);
+
+			        }else{
+			        	$bupr_msg = 'Review not added..';
+			        	$bupr_flag = false;
+			        	$this->bupr_review_message($bupr_flag , $bupr_msg);
+			        }
+			        unset($_POST['submit-review']);
+
+			        wp_set_object_terms( $review_id, 'BP Member', 'review_category' );  
+			        update_post_meta( $review_id, 'linked_bp_member', $bupr_memberID);
+
+			        if(!empty($rated_stars)):
+			            update_post_meta( $review_id, 'profile_star_rating', $rated_stars );
+			        endif;
+			    }else{
+			    	$bupr_review_succes = true;
+			        $pubr_review_msg = 'Please select a member.';
+			    }*/
+			}
+		} 
 	}
 	new BUPR_AJAX();
 }
