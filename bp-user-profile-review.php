@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress User Profile Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
- * Description: This plugin allows site visitors to add reviews to the user's profiles on the site.
+ * Description: This plugin allows site members to add reviews to the buddypress member's profiles on the site.
  * Version: 1.0.0
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
