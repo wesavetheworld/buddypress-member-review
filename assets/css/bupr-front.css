@@ -1,0 +1,103 @@
+.stars{
+    display: inline-block;
+}
+/*** css classes for reviews ***/
+[class*="bupr-col-"] {
+    float: left;
+    padding: 10px 0;
+ }
+.bupr-row{
+    clear: both;
+    border-bottom: 1px solid #ddd;    
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+.bupr-col-1 {width: 8.33%;}
+.bupr-col-2 {width: 16.66%;}
+.bupr-col-3 {width: 25%;}
+.bupr-col-4 {width: 33.33%;}
+.bupr-col-5 {width: 41.66%;}
+.bupr-col-6 {width: 50%;}
+.bupr-col-7 {width: 58.33%;}
+.bupr-col-8 {width: 66.66%;}
+.bupr-col-9 {width: 75%;}
+.bupr-col-10 {width: 83.33%;}
+.bupr-col-11 {width: 91.66%;}
+.bupr-col-12 {width: 100%;}
+
+@media(max-width: 767px){
+    [class*="bupr-col-"] {
+        width: 100%;
+    }
+}    
+
+.bupr-review-full-description{
+    display: none;
+    padding-top: 20px;
+}
+
+.bupr-accept-button,.bupr-deny-button{
+    float :left;
+    margin-right: 5px;
+}
+.bupr-pagination{
+    border-bottom: 0;
+    clear: both;
+}
+/* widget css for front-end */
+.bupr-members{
+    border-bottom: 1px solid hsl(0, 0%, 87%);
+    height: 100px;
+    width: 100%;
+    text-align:center;
+}
+.members{
+    text-transform: capitalize;
+    text-align:left;
+}
+.members p{
+    margin:5px 0px!important;
+}
+
+.bupr-modal-msg{
+    margin: 50px 0px;
+    text-align: center;
+}
+/* review tab */
+.bupr-members-profiles{
+    text-align:center;
+}
+.bupr-members-profiles .reviewer h4{
+    text-transform: capitalize;
+    margin:10px 0px!important;
+}
+.bupr-members-content{
+    padding:0px 10px;
+}
+.bupr-members-content .review-subject h4{
+    margin:5px 0px!important;
+}
+/* end */
+/* pagination */
+.bupr-posts-pagination{
+    margin: 10px 0;
+}
+.bupr-posts-pagination span{
+    border: 1px solid hsl(0, 0%, 50%);
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 5px 10px;
+}
+.bupr-posts-pagination a{
+    border: 1px solid hsl(0, 0%, 87%);
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 5px 10px;
+}
+.bupr-single-reivew{
+    margin-top:20px;
+}
+.no-count{
+    margin-left:3px;
+}
+

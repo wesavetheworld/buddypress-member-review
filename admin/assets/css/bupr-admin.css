@@ -1,0 +1,59 @@
+@CHARSET "ISO-8859-1";
+.bupr-admin-settings-header p{
+	font-size: 24px;
+}
+.bupr-admin-settings-spinner{
+	vertical-align: middle;
+	display: none;
+}
+.bupr-btn-ajax{
+    color: #66c6e4 !important;
+}
+#bupr_settings_updated{
+	display: none;
+	margin-left: 0;
+    width: 80%;
+    margin-bottom: 15px;
+}
+#bupr-settings-tbl td{
+	padding: 10px;
+}
+.bupr-review-fields input{
+	width:100%;
+}
+
+.bupr-table input[type=text]{
+	width:70%;
+	margin:10px 0px;
+}
+.bupr-table th , .bupr-table td{
+	text-align:left;
+}
+.bupr-remove{
+	margin:10px 0px!important;
+}
+.bupr-widget-class p{
+    width:100%;
+}
+.bupr-widget-class p label{
+    width:50%;
+}
+.bupr-widget-class p input{
+    width:50%;
+}
+.bupr-widget-class p select{
+    width:50%;
+}
+.bupr-adming-setting{
+	float: left;
+    padding: 0 10px;
+    width: 48%;
+}
+.bupr-border{
+	border-right:1px solid hsl(0, 0%, 87%);
+}
+.bupr-shortcode{
+	 font-size: 16px;
+    font-weight: normal;
+}
+
