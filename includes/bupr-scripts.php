@@ -61,6 +61,8 @@ if( !class_exists( 'BUPRScriptsStyles' ) ) {
 			wp_enqueue_script('bupr-js-admin',BUPR_PLUGIN_URL.'admin/assets/js/bupr-admin.js', array('jquery'));
 			wp_localize_script('bupr-js-admin', 'bupr_admin_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
 			wp_enqueue_style('bupr-css-admin', BUPR_PLUGIN_URL.'admin/assets/css/bupr-admin.css');
+			wp_enqueue_style('bupr-font-awesom', "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+
 		}
 	}
 	new BUPRScriptsStyles();

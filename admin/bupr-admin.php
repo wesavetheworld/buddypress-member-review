@@ -40,7 +40,7 @@ if( !class_exists( 'BUPR_Admin' ) ) {
 		* @access   public
 		* @author   Wbcom Designs
 		*/
-		public function bupr_admin_options_page() {
+		function bupr_admin_options_page() {
 			include 'review-admin-options-page.php';
 		}
 

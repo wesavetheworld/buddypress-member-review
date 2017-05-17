@@ -22,23 +22,22 @@ defined( 'ABSPATH' ) || exit;
     }
     //Gather all the bp member reviews
     $args = array(
-    	'post_type' => 'review',
-    	'posts_per_page' => -1,
-    	'post_status' => 'publish',
-            'posts_per_page' => $profile_reviews_per_page,
-            'paged'      => get_query_var('page',1), 
-    	'category' => 'bp-member',
-    	'meta_query' => array(
-    		array(
-    			'key'		=>	'linked_bp_member',
-    			'value'		=>	bp_displayed_user_id(),
-    			'compare'	=>	'=',
-    		),
-    	),
+        'post_type'         => 'review',
+        'posts_per_page'    => -1,
+        'post_status'       => 'publish',
+        'posts_per_page'    => $profile_reviews_per_page,
+        'paged'             => get_query_var('page',1), 
+        'category'          => 'bp-member',
+        'meta_query'        => array(
+            array(
+                'key'		=>	'linked_bp_member',
+                'value'		=>	bp_displayed_user_id(),
+                'compare'	=>	'=',
+            ),
+        ),
     );
 
-    $reviews = new WP_Query($args);
-?>
+    $reviews = new WP_Query($args); ?>
 
     <div class="bupr-bp-member-reviews-block">
         <div class="reviews-header" id="add_more_review">
@@ -46,18 +45,20 @@ defined( 'ABSPATH' ) || exit;
                 <?php _e('Reviews' , 'bp-group-reviews'); 
                 if( $allow_popup == 'yes' ) { ?>
                     <span class="bupr-add-review">
-                    <a href="javascript:void(0)" id="bupr-add-review"><?php _e('+Add' ,'bp-group-reviews'); ?></a>
+                        <a href="javascript:void(0)" id="bupr-add-review">
+                            <?php _e('+Add' ,'bp-group-reviews'); ?>
+                        </a>
                     </span><?php
-                } else {?>
+                } else { ?>
                     <span class="bupr-add-review">
-                    <a href="javascript:void(0)" id="bupr-add-review-no-popup"><?php _e('+Add' ,'bp-group-reviews'); ?></a>
+                        <a href="javascript:void(0)" id="bupr-add-review-no-popup">
+                            <?php _e('+Add' ,'bp-group-reviews'); ?>
+                        </a>
                     </span><?php
                 } ?>
             </p>
+            <div id="add_review_msg" class="info isdismiss"></div>
         </div>
-        <!-- -->
-       
-         <!-- -->
         <?php 
         if( $allow_popup == 'no' ) { ?>
         <!-- ADD REVIEW IF NO POPUP -->
@@ -91,13 +92,12 @@ defined( 'ABSPATH' ) || exit;
                 <div class="modal-body">
                     <div class="bupr-bp-member-review-add-block">
                         <?php 
-                        if( bp_displayed_user_id() == get_current_user_id() ){
-                        _e('<h3 class="bupr-modal-msg"> You can not reivew on your own profile. </h3>' , BUPR_PLUGIN_URL);
+                        if(bp_displayed_user_id() == get_current_user_id() ){
+                            _e('<h3 class="bupr-modal-msg"> You can not reivew on your own profile. </h3>' , BUPR_PLUGIN_URL);
                         }else if( is_user_logged_in() ) {
-                        do_shortcode('[add_profile_review_form]');
-
+                            do_shortcode('[add_profile_review_form]');
                         }else{
-                        _e('<h3> You must login ! </h3>' , BUPR_PLUGIN_URL);
+                            _e('<h3> You must login ! </h3>' , BUPR_PLUGIN_URL);
                         } 
                         ?>
                     </div>
@@ -168,21 +168,22 @@ defined( 'ABSPATH' ) || exit;
                         $total_pages = $reviews->max_num_pages;
                         if ($total_pages > 1) { ?>
                         <div class="bupr-row bupr-pagination">
-                        <?php
-                        /*** Posts pagination ***/ 
-                        _e("<div class='bupr-posts-pagination'>",BUPR_TEXT_DOMAIN);
-                        echo paginate_links( array(
-                        'base'   => add_query_arg('page','%#%'),
-                        'format' => '',
-                        'current'=> max( 1, get_query_var('page') ),
-                        'total'  => $reviews->max_num_pages
-                        ) );
-                        _e("</div>",BUPR_TEXT_DOMAIN);
-                        ?>
+                            <?php
+                            /*** Posts pagination ***/ 
+                            _e("<div class='bupr-posts-pagination'>",BUPR_TEXT_DOMAIN);
+                                echo paginate_links( 
+                                    array(
+                                        'base'   => add_query_arg('page','%#%'),
+                                        'format' => '',
+                                        'current'=> max( 1, get_query_var('page') ),
+                                        'total'  => $reviews->max_num_pages
+                                    ) 
+                                );
+                            _e("</div>",BUPR_TEXT_DOMAIN);
+                            ?>
                         </div><?php
                         }
                         wp_reset_postdata();
-
                         } else{ ?>
                             <div id="message" class="info">
                                 <p><?php _e( "Sorry, no reviews were found.", 'buddypress' ); ?></p>

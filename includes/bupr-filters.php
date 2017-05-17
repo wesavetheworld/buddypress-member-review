@@ -65,9 +65,10 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 				$reviews_count = count( $bupr_reviews );
 
 				foreach( $bupr_reviews as $review ){
-					$bupr_rate 					= 0;
+					$bupr_rate 				= 0;
 					$reviews_field_count 	= 0;
-					$review_ratings       	= get_post_meta( $review->ID, 'profile_star_rating', false );                                               
+					$review_ratings      	= get_post_meta( $review->ID, 'profile_star_rating', false );  
+					                                             
 					if(!empty($bupr_review_rating_fields) && !empty($review_ratings[0])):  
 
 						foreach($review_ratings[0] as $field => $value){
@@ -76,7 +77,10 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 								$reviews_field_count++;
 							}
 						}
-						$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;
+						if($reviews_field_count != 0){
+							$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;
+						}
+						
 					endif;                                 
 				}
 				/* get average rating of members review */

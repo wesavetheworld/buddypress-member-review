@@ -15,53 +15,52 @@ global $bp,$post;
     }
        
     $args = array(
-        'post_type' => 'review',
-        'posts_per_page' => -1,
-        'post_status' => 'draft',
-        'paged'      => get_query_var('page',1), 
-        'posts_per_page' =>  $reviews_per_page,     
-        'category' => 'bp-member',
-        'meta_query' => array(
-                array(
-                        'key'		=>	'linked_bp_member',
-                        'value'		=>	bp_displayed_user_id(),
-                        'compare'           =>	'=',
-                ),
+        'post_type'         => 'review',
+        'posts_per_page'    => -1,
+        'post_status'       => 'draft',
+        'paged'             => get_query_var('page',1), 
+        'posts_per_page'    =>  $reviews_per_page,     
+        'category'          => 'bp-member',
+        'meta_query'        => array(
+            array(
+                'key'		=>	'linked_bp_member',
+                'value'		=>	bp_displayed_user_id(),
+                'compare'   =>	'=',
+            ),
         ),
     );
     $reviews = new WP_Query($args); ?>
 
-<div class="bupr-bp-member-reviews-block">
-	<div class="bp-member-reviews">
+    <div class="bupr-bp-member-reviews-block">
+    	<div class="bp-member-reviews">
             <div id="member-request-review-list" class="item-list reviews-item-list">
-                <?php if ($reviews->have_posts()):                            	
-                        while ($reviews->have_posts()): $reviews->the_post(); 
-                ?>  <div class="bupr-row"> 
-                        <div class="bupr-col-2">  
-                            <div class="item-avatar"> 
-                                <?php 
+                <?php 
+                if ($reviews->have_posts()):                            	
+                    while ($reviews->have_posts()): $reviews->the_post(); ?>  
+                        <div class="bupr-row"> 
 
-                                $author = $author = $reviews->post->post_author; 
-                                 //echo '<pre>'; print_r($reviews);die;                                       
-                                bp_displayed_user_avatar( array( 'item_id' => $author)); ?> 
+                            <div class="bupr-col-2">  
+                                <div class="item-avatar"> 
+                                    <?php 
+                                    $author = $author = $reviews->post->post_author;       
+                                    bp_displayed_user_avatar( array( 'item_id' => $author)); ?> 
+                                </div>
                             </div>
-                        </div>
-                        <div class="bupr-col-8"> 
-                            <div class="reviewer">
-                                    <?php _e( '<b>Reviewer : '.bp_core_get_userlink($author).'</b> ', BUPR_TEXT_DOMAIN );                                         
-                                        ?>
-                            </div>
-                            <div class="review-subject">
-                                <b> <?php _e('Review Subject: ', BUPR_TEXT_DOMAIN); ?> </b>
+
+                            <div class="bupr-col-8"> 
+                                <div class="reviewer">
+                                    <?php _e( '<b>Reviewer : '.bp_core_get_userlink($author).'</b> ', BUPR_TEXT_DOMAIN ); ?>
+                                </div>
+                                <div class="review-subject">
+                                    <b> <?php _e('Review Subject: ', BUPR_TEXT_DOMAIN); ?> </b>
                                     <?php the_title(); ?>
-                            </div>
-                            <div class="bupr-review-description">
-                                <b> <?php _e('Review Description: ', BUPR_TEXT_DOMAIN); ?> </b>
-                                <?php $trimexcerpt  = get_the_excerpt();	
-                                $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 10, $more = '… ' ); 
-                                 _e($shortexcerpt, BUPR_TEXT_DOMAIN);
-                                    ?>
-                                <a class="bupr-expand-review-des" href="javascript:void(0);">View More..</a>                                         
+                                </div>
+                                <div class="bupr-review-description">
+                                    <b> <?php _e('Review Description: ', BUPR_TEXT_DOMAIN); ?> </b>
+                                    <?php $trimexcerpt  = get_the_excerpt();	
+                                    $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 10, $more = '… ' ); 
+                                     _e($shortexcerpt, BUPR_TEXT_DOMAIN);?>
+                                        <a class="bupr-expand-review-des" href="javascript:void(0);">View More..</a>                                         
                                                                                        
                                 <div class="bupr-review-full-description">
                                     <b><?php _e('Review Full Description: ', BUPR_TEXT_DOMAIN); ?> </b>
@@ -99,8 +98,9 @@ global $bp,$post;
                                 <a class='bupr-deny-button '> <?php _e('Deny', BUPR_TEXT_DOMAIN); ?> </a><input type="hidden" name="bupr_deny_review_id" value="<?php _e($post->ID, BUPR_TEXT_DOMAIN); ?>">
                             </div>
                         </div> 
-                    </div>
-                <?php endwhile;
+                        </div>
+                    <?php 
+                    endwhile;
                     $total_pages = $reviews->max_num_pages;
                     if ($total_pages > 1) { ?>
                         <div class="bupr-row bupr-pagination">
@@ -125,5 +125,5 @@ global $bp,$post;
                     <?php 
                 endif; ?>
             </div>
-	</div>
-</div>
+	    </div>
+    </div>

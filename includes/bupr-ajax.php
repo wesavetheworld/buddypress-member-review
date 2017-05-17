@@ -31,10 +31,7 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		}
 
 		/**
-		 * Actions performed for saving admin settings
-		 */
-		/**
-		* Constructor.
+		* Actions performed for saving admin settings
 		*
 		* @since    1.0.0
 		* @access   public
@@ -44,13 +41,19 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			if( isset( $_POST['action'] ) && $_POST['action'] === 'bupr_save_admin_settings' ) {
 				
 				$allow_popup            = sanitize_text_field( $_POST['allow_popup'] );
+
+				$bupr_prof_notification = sanitize_text_field( $_POST['bupr_profile_notification'] );
+				$bupr_notification_email= sanitize_text_field( $_POST['bupr_notification_email'] );
+
 				$reviews_per_page       = sanitize_text_field( $_POST['profile_reviews_per_page'] );
 				$rating_fields          = array_map('sanitize_text_field', wp_unslash($_POST['field_values']));
 				$profile_rating_fields  = array_unique($rating_fields); 
 				$bupr_admin_settings 	= array(
 						'add_review_allow_popup'  => $allow_popup , 
 						'profile_reviews_per_page'=> $reviews_per_page,
-				        'profile_rating_fields'   => $profile_rating_fields 
+				        'profile_rating_fields'   => $profile_rating_fields,
+				        'bupr_bb_notification'    => $bupr_prof_notification,
+				        'bupr_email_notification' => $bupr_notification_email
 						);
 				update_option( 'bupr_admin_settings', $bupr_admin_settings );
 				echo 'admin-settings-saved';
@@ -62,7 +65,6 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		* Actions performed when accept review
 		*
 		* @since    1.0.0
-		* @access   public
 		* @author   Wbcom Designs
 		*/
         function bupr_accept_review(){
@@ -76,7 +78,6 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		* Actions performed when deny review
 		*
 		* @since    1.0.0
-		* @access   public
 		* @author   Wbcom Designs
 		*/
 		function bupr_deny_review(){
@@ -86,26 +87,45 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		}
 
 
-		 function wp_allow_bupr_my_member(){
+		/**
+		* Add review to member's profile
+		*
+		* @since    1.0.0
+		* @author   Wbcom Designs
+		*/
+		function wp_allow_bupr_my_member(){
 			if(isset( $_POST['action'] ) && $_POST['action'] == 'allow_bupr_member_review_update') {
 		        
+				$bupr_admin_settings = get_option( 'bupr_admin_settings' );                   
+				if( !empty( $bupr_admin_settings ) ) {
+					$bupr_allow_popup           = $bupr_admin_settings['add_review_allow_popup'];
+					$profile_rating_fields 		= $bupr_admin_settings['profile_rating_fields']; 
+				}
+
 				$review_subject  = sanitize_text_field( $_POST['bupr_review_title'] );
 				$review_desc     = sanitize_text_field( $_POST['bupr_review_desc'] );
 				$bupr_memberID   = sanitize_text_field( $_POST['bupr_member_id'] );
-				$review_count     = sanitize_text_field( $_POST['bupr_field_counter'] ); 
+				$review_count    = sanitize_text_field( $_POST['bupr_field_counter'] ); 
 
 		        $profile_rated_field_values = array_map('sanitize_text_field', wp_unslash($_POST['bupr_review_rating']));
 
-			    /*if(!empty($bupr_memberID) && $bupr_memberID != 0){
-			        if(!empty($_POST['bupr_review_rating'])){
-			            
-			        }
-			        $a = count($profile_rated_field_values);
+		        $bupr_count = 0;
+		        $bupr_member_star = array();
+		        if(!empty($profile_rated_field_values)){
+					foreach($profile_rated_field_values as $bupr_stars_rate){
+						if($bupr_count == $review_count){
+							break;
+						}else{
+							$bupr_member_star[] = $bupr_stars_rate;
+						}
+						$bupr_count++;
+					}
+		        }
 
-			    
-			        die;
+			    if(!empty($bupr_memberID) && $bupr_memberID != 0){
+					$bupr_rated_stars = array();
 			        if(!empty($profile_rating_fields)):
-			            $rated_stars    = array_combine($profile_rating_fields,$profile_rated_field_values);
+			            $bupr_rated_stars    = array_combine($profile_rating_fields,$bupr_member_star);
 			        endif;
 
 			        $add_review_args = array(
@@ -117,27 +137,22 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 
 			        $review_id = wp_insert_post( $add_review_args );
 			        if($review_id){
-			        	$bupr_msg = 'Review added Successfully..';
-			        	$bupr_flag = true;
-			        	$this->bupr_review_message($bupr_flag , $bupr_msg);
+			        	_e( '<p id="bupr-success-msg">Review added successfully</p>', BUPR_TEXT_DOMAIN );
 
 			        }else{
-			        	$bupr_msg = 'Review not added..';
-			        	$bupr_flag = false;
-			        	$this->bupr_review_message($bupr_flag , $bupr_msg);
+			        	_e( '<p id="bupr-unsuccess-msg">Review added unsuccessfully</p>', BUPR_TEXT_DOMAIN );
 			        }
-			        unset($_POST['submit-review']);
 
 			        wp_set_object_terms( $review_id, 'BP Member', 'review_category' );  
 			        update_post_meta( $review_id, 'linked_bp_member', $bupr_memberID);
 
-			        if(!empty($rated_stars)):
-			            update_post_meta( $review_id, 'profile_star_rating', $rated_stars );
+			        if(!empty($bupr_rated_stars)):
+			            update_post_meta( $review_id, 'profile_star_rating', $bupr_rated_stars );
 			        endif;
 			    }else{
-			    	$bupr_review_succes = true;
-			        $pubr_review_msg = 'Please select a member.';
-			    }*/
+			    	_e( '<p id="bupr-unsuccess-msg">Pleaas select a member</p>', BUPR_TEXT_DOMAIN );
+			    }
+			    die;
 			}
 		} 
 	}

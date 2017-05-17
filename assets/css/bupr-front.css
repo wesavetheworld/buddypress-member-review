@@ -104,3 +104,23 @@
 #bupr_success_review p{
     display:none;
 }
+.bupr-required{
+    display:none;
+}
+#bupr-unsuccess-msg{
+    background-color: hsl(0, 43%, 91%);
+    border-color: hsl(350, 44%, 86%);
+    color: hsl(1, 44%, 46%);
+    border-radius: 5px;
+    padding: 10px;
+}
+#bupr-success-msg{
+    background-color: hsl(103, 44%, 89%);
+    border-color: hsl(93, 44%, 85%);
+    color: hsl(121, 33%, 35%);
+    border-radius: 5px;
+    padding: 10px;
+}
+.bupr-add-reivew-spinner{
+    display:none;
+}

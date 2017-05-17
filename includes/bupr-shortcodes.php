@@ -30,6 +30,7 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 		* @author   Wbcom Designs
 		*/
 		function bupr_display_review_form(){
+			$bupr_spinner_src = includes_url().'/images/spinner.gif';
             $bupr_admin_settings = get_option( 'bupr_admin_settings' );                   
             if( !empty( $bupr_admin_settings ) ) {
                 $bupr_allow_popup           = $bupr_admin_settings['add_review_allow_popup'];
@@ -62,6 +63,7 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 			<form action="" method="POST">
 				<input type="hidden" id="reviews_pluginurl" value="<?php echo BUPR_PLUGIN_URL;?>">
 				<div class="bp-member-add-form">
+
 				<p>
 					<?php _e( 'Fill In Details To Submit Review', BUPR_TEXT_DOMAIN );?>
 				</p>
@@ -80,13 +82,16 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 						}
 						?>
 					</select>
+					<span class="bupr-required"> * </span>
 				</p>
 
 				<p>
 					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" required>
+					<span class="bupr-required"> * </span>
 				</p>
 				<p>
 					<textarea name="review-desc" id="review_desc" placeholder="Review Description" rows="3" cols="50" required></textarea>
+					<span class="bupr-required"> * </span>
 				</p>
 				<?php   
 				if(!empty($profile_rating_fields)){
@@ -116,27 +121,24 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 						<button type="button" class="btn btn-default" id="bupr_save_review" name="submit-review">
 						<?php _e( 'Submit Review', BUPR_TEXT_DOMAIN );?>
 						</button>
+						<img src="<?php echo $bupr_spinner_src;?>" class="bupr-add-reivew-spinner" />
 					</p>
 				</div>
 			</form><?php
         }
 
+        /**
+		* Create shortcode for review form.
+		*
+		* @since    1.0.0
+		* @author   Wbcom Designs
+		*/
         function bupr_shortcode_review_form(){
         	ob_start();
         	$this->bupr_display_review_form();
         	
 		}
-
-        function bupr_review_message($bupr_flag , $bupr_msg){
-			if(!empty($bupr_flag) && $bupr_flag == true){ 
-				$flage = 1;
-				?>
-				<input type="hidden" value="<?php echo $flage; ?>" id="bupr_mm">
-				<div id="message" class="info isdismiss">
-				<?php _e('<p>'. $bupr_msg .'</p>' , BUPR_PLUGIN_URL); ?>
-				</div><?php
-			}
-        }          
+          
 	}
 	new BUPR_Shortcodes();
 }
