@@ -77,10 +77,7 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 								$reviews_field_count++;
 							}
 						}
-						if($reviews_field_count != 0){
-							$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;
-						}
-						
+						$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;
 					endif;                                 
 				}
 				/* get average rating of members review */

@@ -1,38 +1,27 @@
 @CHARSET "ISO-8859-1";
 .bupr-admin-settings-header p{
 	font-size: 24px;
+	border-bottom:;
 }
 .bupr-admin-settings-spinner{
 	vertical-align: middle;
 	display: none;
-  float:right;
 }
 .bupr-btn-ajax{
     color: #66c6e4 !important;
 }
 #bupr_settings_updated{
 	display: none;
-  float: left;
-  margin-top: -6px;
-  width: 86%;
+	margin-left: 0;
+    width: 80%;
+    margin-bottom: 15px;
 }
-bupr_settings_updated p{
-  margin:4px!important;
-}
-#bupr-settings-tbl td{
-	padding: 10px;
-}
+
 .bupr-review-fields input{
 	width:100%;
 }
 
-.bupr-table input[type=text]{
-	width:70%;
-	margin:10px 0px;
-}
-.bupr-table th , .bupr-table td{
-	text-align:left;
-}
+
 .bupr-remove{
 	margin:10px 0px!important;
 }
@@ -50,8 +39,7 @@ bupr_settings_updated p{
 }
 .bupr-adming-setting{
 	float: left;
-    padding: 0 10px;
-    width: 48%;
+    width: 90%;
 }
 .bupr-border{
 	border-right:1px solid hsl(0, 0%, 87%);
@@ -60,142 +48,17 @@ bupr_settings_updated p{
 	 font-size: 16px;
     font-weight: normal;
 }
-
-
-/****** css for display rows & columns ****/
-/****** css for display rows & columns ****/
-[class*="bupr-col-"] {
-    float: left;
-    padding: 10px 0;
- }
-.bupr-row{
-    clear: both;
-    border-bottom: 1px solid #ddd;    
-    overflow: hidden;
-    padding-bottom: 5px;
-}
-.bupr-col-1 {width: 8.33%;}
-.bupr-col-2 {width: 16.66%;}
-.bupr-col-3 {width: 25%;}
-.bupr-col-4 {width: 33.33%;}
-.bupr-col-5 {width: 41.66%;}
-.bupr-col-6 {width: 50%;}
-.bupr-col-7 {width: 58.33%;}
-.bupr-col-8 {width: 66.66%;}
-.bupr-col-9 {width: 75%;}
-.bupr-col-10 {width: 83.33%;}
-.bupr-col-11 {width: 91.66%;}
-.bupr-col-12 {width: 100%;}
-
-@media(max-width: 767px){
-    [class*="bupr-col-"] {
-        width: 100%;
-    }
-}   
-/*** css end ****/
-.bupr-shortcode-tbl td{
-  border-left:1px solid black;
-}
-.bupr-shortcode-tbl tr{
-    border: 10px;
-}
-.bupr-shortcode-tbl th{
-    padding-right: 10px;
-}
-.bupr-admin-settings-header p{
-    font-size: 24px;
-    padding: 0 5%;
-}
-.bupr-admin-settings-spinner{
-    vertical-align: middle;
-    display: none;
-}
-.bupr-btn-ajax{
-    color: #66c6e4 !important;
-}
-#bupr_settings_updated{
-    display: none;
-    float: left;
-    margin-top: -6px;
-    width: 86%;
-}
-
-#bupr-settings-tbl td{
-    padding-left : 10px;
-    padding-bottom: 15px;
-}
-.rating-review-div{
-    margin-bottom: 10px;
-}
-.bupr-row-setting{
-    float: left;
-}
-.bupr-remove{
-    margin-bottom: 10px!important;
-}
-
-/*** Admin panel new css ***/
-.bupr-admin-settings-block{
-    margin: 2% 5%;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    background: #fff;
-}
-#bupr-save-admin-settings{
-    float: right;
-    margin: 0 10px;
-}
-/*** Group Review settings sidebar css ***/
-.bupr-setting-sidebar{
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    height: 100%;
-    min-height: 600px;
-}
-.buprtablink{
-    background-color: #fff;
-    border: medium none;
-    display: block;
-    float: none;
-    outline: medium none;
-    padding: 9px 16px;
-    text-align: left;
-    white-space: normal;
-    width: 90%;
-    font-size: 14px;
-    margin-left: 5%;
-}
-.buprtablink i,.bupr-menu-heading i{
-    margin-right: 10px;
-}
-.bupr-menu-heading{
-    padding: 8px 16px;
-    border-bottom: 2px solid #ddd;
-}
-.bupr-blue{
-    background-color: #0073AA;
-    color: #fff;
-}
-
-/*** Group Review settings sidebar css end ***/
-/*** Group Review settings tab content css ***/
-.bupr-setting-content{
-    padding: 10px;
-}
-.bupr-setting-content label{
-    font-weight: 600;
-}
- /* The switch - the box around the slider */
-.switch {
+/* check box design */
+.bupr-switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
 }
 
-/* Hide default HTML checkbox */
-.switch input {display:none;}
+.bupr-switch input {display:none;}
 
-/* The slider */
-.slider {
+.bupr-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -207,7 +70,7 @@ bupr_settings_updated p{
   transition: .4s;
 }
 
-.slider:before {
+.bupr-slider:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -219,39 +82,67 @@ bupr_settings_updated p{
   transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #0073AA;
+input:checked + .bupr-slider {
+  background-color: #2196F3;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #0073AA;
+input:focus + .bupr-slider {
+  box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked + .bupr-slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 /* Rounded sliders */
-.slider.round {
+.bupr-slider.bupr-round {
   border-radius: 34px;
 }
 
-.slider.round:before {
+.bupr-slider.bupr-round:before {
   border-radius: 50%;
-} 
+}
 
-.bupr-extra-fields input[type=text]{
-  width:100%;
+.bupr-label{
+	font-size:17px;
 }
-.bupr-extra-fields input[type=button]{
-  margin:0px!important;
+
+/* setting page criteria tab */
+.bupr-criteria input[type=text]{
+	width:95%;
 }
-.bupr-extra-fields{
-  padding:0px 5px;
-  margin: 10px 0;
+.bupr-criteria input[type=button]{
+	margin: 0!important;
+	padding: 0 26px;
 }
-#bupr-btnAdd{
-  margin-top:10px;
+/*** css classes for admin setting page ***/
+[class*="bupr-admin-col-"] {
+    float: left;
+    padding: 10px 0;
+ }
+.bupr-admin-row{
+    clear: both;
+    border-top: 1px solid #ddd;    
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+.bupr-admin-col-1 {width: 8.33%;}
+.bupr-admin-col-2 {width: 16.66%;}
+.bupr-admin-col-3 {width: 25%;}
+.bupr-admin-col-4 {width: 33.33%;}
+.bupr-admin-col-5 {width: 41.66%;}
+.bupr-admin-col-6 {width: 50%;}
+.bupr-admin-col-7 {width: 58.33%;}
+.bupr-admin-col-8 {width: 66.66%;}
+.bupr-admin-col-9 {width: 75%;}
+.bupr-admin-col-10 {width: 83.33%;}
+.bupr-admin-col-11 {width: 91.66%;}
+.bupr-admin-col-12 {width: 100%;}
+
+@media(max-width: 767px){
+    [class*="bupr-admin-col-"] {
+        width: 100%;
+    }
 }

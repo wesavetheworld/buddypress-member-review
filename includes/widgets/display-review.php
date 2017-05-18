@@ -65,10 +65,7 @@ class bupr_members_review_setting extends WP_Widget {
 										$reviews_field_count++;
 									}
 								}
-								if($reviews_field_count != 0){
-									$bupr_total_rating += (int)$rate/$reviews_field_count;
-								}
-								
+								$bupr_total_rating += (int)$rate/$reviews_field_count;
 						endif;                                 
 					}
 					

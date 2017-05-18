@@ -48,6 +48,20 @@ if( !class_exists( 'BUPRScriptsStyles' ) ) {
 			}
             wp_enqueue_script('bupr-front-js', BUPR_PLUGIN_URL.'assets/js/bupr-front.js', array('jquery'));
 			wp_enqueue_style('bupr-front-css', BUPR_PLUGIN_URL.'assets/css/bupr-front.css');
+
+			/* rating css file */
+			wp_register_style('buprs-square', BUPR_PLUGIN_URL.'assets/css/buprs-square.css');
+			wp_register_style('bupr-rating', BUPR_PLUGIN_URL.'assets/css/bupr-style-rating.css');
+			wp_register_style('bupr-normalize', BUPR_PLUGIN_URL.'assets/css/bupr-normalize.css');
+
+			wp_enqueue_style('buprs-square');
+			wp_enqueue_style('bupr-rating');
+			wp_enqueue_style('bupr-normalize');
+
+
+			wp_enqueue_script('bupr-jquery-js', BUPR_PLUGIN_URL.'assets/js/rating/bupr-jquery.js', array('jquery'));
+			wp_enqueue_script('bupr-example-js', BUPR_PLUGIN_URL.'assets/js/bupr-example.js', array('jquery'));
+			wp_enqueue_script('bupr-barrating', BUPR_PLUGIN_URL.'assets/js/ jquery.barrating.min.js', array('jquery'));
 		}
 		
 		/**
@@ -61,8 +75,6 @@ if( !class_exists( 'BUPRScriptsStyles' ) ) {
 			wp_enqueue_script('bupr-js-admin',BUPR_PLUGIN_URL.'admin/assets/js/bupr-admin.js', array('jquery'));
 			wp_localize_script('bupr-js-admin', 'bupr_admin_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
 			wp_enqueue_style('bupr-css-admin', BUPR_PLUGIN_URL.'admin/assets/css/bupr-admin.css');
-			wp_enqueue_style('bupr-font-awesom', "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
-
 		}
 	}
 	new BUPRScriptsStyles();

@@ -39,6 +39,12 @@
 	define('BUPR_PLUGIN_URL', plugin_dir_url(__FILE__));
 	define('BUPR_TEXT_DOMAIN', 'bp-member-reviews');
 
+	/* define options name for admin setting option */
+	define('BUPR_GENERAL_OPTIONS', 'bupr_admin_general_options');
+	define('BUPR_CRITERIA_OPTIONS', 'bupr_admin_criteria_options');
+	define('BUPR_SHORTCODE_OPTIONS', 'bupr_admin_shortcode_options');
+	define('BUPR_DISPLAY_OPTIONS', 'bupr_admin_display_options');
+
 
 	if ( !function_exists( 'bupr_plugin_activation' ) ) {
 
@@ -130,3 +136,5 @@
 			return array_merge($links, $page_link);
 		}
 	}
+
+				
