@@ -1,7 +1,6 @@
 @CHARSET "ISO-8859-1";
 .bupr-admin-settings-header p{
 	font-size: 24px;
-	border-bottom:;
 }
 .bupr-admin-settings-spinner{
 	vertical-align: middle;
@@ -16,12 +15,20 @@
     width: 80%;
     margin-bottom: 15px;
 }
-
+#bupr-settings-tbl td{
+	padding: 10px;
+}
 .bupr-review-fields input{
 	width:100%;
 }
 
-
+.bupr-table input[type=text]{
+	width:70%;
+	margin:10px 0px;
+}
+.bupr-table th , .bupr-table td{
+	text-align:left;
+}
 .bupr-remove{
 	margin:10px 0px!important;
 }
@@ -39,7 +46,8 @@
 }
 .bupr-adming-setting{
 	float: left;
-    width: 90%;
+    padding: 0 10px;
+    width: 48%;
 }
 .bupr-border{
 	border-right:1px solid hsl(0, 0%, 87%);
@@ -48,101 +56,4 @@
 	 font-size: 16px;
     font-weight: normal;
 }
-/* check box design */
-.bupr-switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
 
-.bupr-switch input {display:none;}
-
-.bupr-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.bupr-slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .bupr-slider {
-  background-color: #2196F3;
-}
-
-input:focus + .bupr-slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .bupr-slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.bupr-slider.bupr-round {
-  border-radius: 34px;
-}
-
-.bupr-slider.bupr-round:before {
-  border-radius: 50%;
-}
-
-.bupr-label{
-	font-size:17px;
-}
-
-/* setting page criteria tab */
-.bupr-criteria input[type=text]{
-	width:95%;
-}
-.bupr-criteria input[type=button]{
-	margin: 0!important;
-	padding: 0 26px;
-}
-/*** css classes for admin setting page ***/
-[class*="bupr-admin-col-"] {
-    float: left;
-    padding: 10px 0;
- }
-.bupr-admin-row{
-    clear: both;
-    border-top: 1px solid #ddd;    
-    overflow: hidden;
-    padding-bottom: 5px;
-}
-.bupr-admin-col-1 {width: 8.33%;}
-.bupr-admin-col-2 {width: 16.66%;}
-.bupr-admin-col-3 {width: 25%;}
-.bupr-admin-col-4 {width: 33.33%;}
-.bupr-admin-col-5 {width: 41.66%;}
-.bupr-admin-col-6 {width: 50%;}
-.bupr-admin-col-7 {width: 58.33%;}
-.bupr-admin-col-8 {width: 66.66%;}
-.bupr-admin-col-9 {width: 75%;}
-.bupr-admin-col-10 {width: 83.33%;}
-.bupr-admin-col-11 {width: 91.66%;}
-.bupr-admin-col-12 {width: 100%;}
-
-@media(max-width: 767px){
-    [class*="bupr-admin-col-"] {
-        width: 100%;
-    }
-}

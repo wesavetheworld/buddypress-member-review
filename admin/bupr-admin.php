@@ -40,36 +40,10 @@ if( !class_exists( 'BUPR_Admin' ) ) {
 		* @access   public
 		* @author   Wbcom Designs
 		*/
-		/*public function bupr_admin_options_page() {
+		public function bupr_admin_options_page() {
 			include 'review-admin-options-page.php';
-		}*/
+		}
 
-
-		function bupr_admin_options_page($current = 'first') {?>
-        
-	        <div class="bupr-admin-settings-header">
-	            <p>
-	                <?php _e( 'BP Member Reviews Settings', BUPR_TEXT_DOMAIN );?>
-	            </p>
-	        </div><?php
-        
-            $bupr_tabs = array(
-	            'general'   	=> __("General" , BUPR_TEXT_DOMAIN), 
-	            'criteria'  	=> __("Criteria" , BUPR_TEXT_DOMAIN),
-	            'shortcode'   	=> __("Shortcode", BUPR_TEXT_DOMAIN),
-	            'display'   	=> __("Display" , BUPR_TEXT_DOMAIN), 
-	            'support'  		=> __("Support" , BUPR_TEXT_DOMAIN)    
-            );
-
-            $bupr_tab_html 		=  '<h2 class="nav-tab-wrapper">';
-	        	foreach( $bupr_tabs as $bupr_tab => $bupr_name ){
-	        		$class = ($bupr_tab == $current) ? 'nav-tab-active' : '';
-	        		$bupr_tab_html .=  '<a class="nav-tab ' . $class . '" href="admin.php?page=bp-member-review-settings&tab=' . $bupr_tab . '">' . $bupr_name . '</a>';
-	        	}
-            $bupr_tab_html .= '</h2>';
-            _e($bupr_tab_html , BUPR_TEXT_DOMAIN );
-            include 'review-admin-options-page.php';
-        }
 
 		/**
 		* Actions performed to create Review cpt

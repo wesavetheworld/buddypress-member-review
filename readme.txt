@@ -33,7 +33,7 @@ The admin settings modifies the review creation template. If the popup allowed i
 
 Just go to "Dashboard->Review->BP member review setting page" and click add criteria button to add more fields and click save setting button to update review settings.
 
-= What is the members review widget and how to use it ? =
+= What is the Top Members widget and how to use it ? =
 
 Members Review widgets display list of members on site front-end . When you successfully activate BP Member profile review plugin. Then you can see Members reivew widget in the widget section.
 

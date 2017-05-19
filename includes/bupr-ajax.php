@@ -19,16 +19,8 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		* @author   Wbcom Designs
 		*/
 		public function __construct() {
-
-			/* add action for general tab admin setting */ 
-			add_action( 'wp_ajax_bupr_admin_tab_generals', array( $this, 'bupr_admin_tab_general_settings' ) );
-			add_action( 'wp_ajax_nopriv_bupr_admin_tab_generals', array( $this, 'bupr_admin_tab_general_settings' ) );
-
-			/* add action for criteria tab admin setting */ 
-			add_action( 'wp_ajax_bupr_admin_tab_criteria', array( $this, 'bupr_admin_tab_criteria' ) );
-			add_action( 'wp_ajax_nopriv_bupr_admin_tab_criteria', array( $this, 'bupr_admin_tab_criteria' ) );
-
-
+			add_action( 'wp_ajax_bupr_save_admin_settings', array( $this, 'bupr_save_admin_settings' ) );
+			add_action( 'wp_ajax_nopriv_bupr_save_admin_settings', array( $this, 'bupr_save_admin_settings' ) );
 			add_action( 'wp_ajax_bupr_accept_review', array( $this, 'bupr_accept_review' ) );
 			add_action( 'wp_ajax_nopriv_bupr_accept_review', array( $this, 'bupr_accept_review' ) );
 			add_action( 'wp_ajax_bupr_deny_review', array( $this, 'bupr_deny_review' ) );
@@ -39,53 +31,27 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		}
 
 		/**
-		* Actions performed for saving admin settings general tab
+		* Actions performed for saving admin settings
 		*
 		* @since    1.0.0
 		* @access   public
 		* @author   Wbcom Designs
 		*/
-		function bupr_admin_tab_general_settings() {
-			if( isset( $_POST['action'] ) && $_POST['action'] === 'bupr_admin_tab_generals' ) {
+		public function bupr_save_admin_settings() {
+			if( isset( $_POST['action'] ) && $_POST['action'] === 'bupr_save_admin_settings' ) {
 				
-				$bupr_allow_popup		= sanitize_text_field($_POST['bupr_allow_popup']);
-				$bupr_allow_email		= sanitize_text_field($_POST['bupr_allow_email']);
-				$bupr_allow_notification = sanitize_text_field($_POST['bupr_allow_notification']);
-				$bupr_reviews_per_page  = sanitize_text_field($_POST['bupr_reviews_per_page']);
-
-				$bupr_general_options 	= array(
-						'add_review_allow_popup'  	=> $bupr_allow_popup , 
-						'profile_reviews_per_page'	=> $bupr_reviews_per_page,
-						'bupr_allow_email'			=> $bupr_allow_email,
-						'bupr_allow_notification' 	=> $bupr_allow_notification
-						);
-				update_option( BUPR_GENERAL_OPTIONS , $bupr_general_options );
-				echo 'admin-settings-saved';
-				die;                              
-			}
-		}
-
-		/**
-		* Actions performed for saving admin settings criteria tab
-		*
-		* @since    1.0.0
-		* @access   public
-		* @author   Wbcom Designs
-		*/
-		public function bupr_admin_tab_criteria(){
-			if( isset( $_POST['action'] ) && $_POST['action'] === 'bupr_admin_tab_criteria' ) {
-
-				$bupr_review_criteria = array_map('sanitize_text_field', wp_unslash($_POST['bupr_review_criteria']));
-				if(!empty($bupr_review_criteria)){
-					$bupr_review_fields	  = array_unique($bupr_review_criteria);
-				}
-
+				$allow_popup            = sanitize_text_field( $_POST['allow_popup'] );
+				$reviews_per_page       = sanitize_text_field( $_POST['profile_reviews_per_page'] );
+				$rating_fields          = array_map('sanitize_text_field', wp_unslash($_POST['field_values']));
+				$profile_rating_fields  = array_unique($rating_fields); 
 				$bupr_admin_settings 	= array(
-				    'profile_rating_fields'   => $bupr_review_fields 
-				);
+						'add_review_allow_popup'  => $allow_popup , 
+						'profile_reviews_per_page'=> $reviews_per_page,
+				        'profile_rating_fields'   => $profile_rating_fields 
+						);
 				update_option( 'bupr_admin_settings', $bupr_admin_settings );
 				echo 'admin-settings-saved';
-				die;
+				die;                              
 			}
 		}
 

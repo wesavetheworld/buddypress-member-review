@@ -8,19 +8,12 @@ defined( 'ABSPATH' ) || exit;
     $current_user   = wp_get_current_user();
     $member_id      = $current_user->ID; 
 
-    /* admin general tab setting value */
-    $bupr_general_tab       = get_option(BUPR_GENERAL_OPTIONS);   
-    $bupr_allow_popup       = 'no';
-
-    if(!empty($bupr_general_tab)){
-        $bupr_allow_popup           = $bupr_general_tab['add_review_allow_popup'];
-        $profile_reviews_per_page   = $bupr_general_tab['profile_reviews_per_page'];
-    }
-
     /* Admin Settings */
     $bupr_admin_settings    = get_option( 'bupr_admin_settings' );
-    
+    $allow_popup            = 'no';
     if( !empty( $bupr_admin_settings ) ) {
+        $allow_popup              = $bupr_admin_settings['add_review_allow_popup'];
+        $profile_reviews_per_page = $bupr_admin_settings['profile_reviews_per_page'];
         $profile_rating_fields    = $bupr_admin_settings['profile_rating_fields']; 
     }
 
@@ -50,7 +43,7 @@ defined( 'ABSPATH' ) || exit;
         <div class="reviews-header" id="add_more_review">
             <p>
                 <?php _e('Reviews' , 'bp-group-reviews'); 
-                if( $bupr_allow_popup == 'yes' ) { ?>
+                if( $allow_popup == 'yes' ) { ?>
                     <span class="bupr-add-review">
                         <a href="javascript:void(0)" id="bupr-add-review">
                             <?php _e('+Add' ,'bp-group-reviews'); ?>
@@ -67,7 +60,7 @@ defined( 'ABSPATH' ) || exit;
             <div id="add_review_msg" class="info isdismiss"></div>
         </div>
         <?php 
-        if( $bupr_allow_popup == 'no' ) { ?>
+        if( $allow_popup == 'no' ) { ?>
         <!-- ADD REVIEW IF NO POPUP -->
             <div class="bupr-bp-member-review-no-popup-add-block">
                 <?php 

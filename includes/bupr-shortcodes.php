@@ -31,14 +31,9 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 		*/
 		function bupr_display_review_form(){
 			$bupr_spinner_src 		= includes_url().'/images/spinner.gif';
-            $bupr_admin_settings 	= get_option( 'bupr_admin_settings' );
-            $bupr_general_tab		= get_option(BUPR_GENERAL_OPTIONS);   
-
-            if(!empty($bupr_general_tab)){
-            	$bupr_allow_popup   = $bupr_general_tab['add_review_allow_popup'];
-            }
-
+            $bupr_admin_settings = get_option( 'bupr_admin_settings' );                   
             if( !empty( $bupr_admin_settings ) ) {
+                $bupr_allow_popup           = $bupr_admin_settings['add_review_allow_popup'];
                 $profile_rating_fields 		= $bupr_admin_settings['profile_rating_fields']; 
             } 
             $bupr_review_succes = false;
@@ -73,7 +68,7 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 					<?php _e( 'Fill In Details To Submit Review', BUPR_TEXT_DOMAIN );?>
 				</p>
 
-				<p class="bupr-fields">
+				<p>
 					<select name="bupr_member_id" id="bupr_member_review_id" ><?php
 						if(!empty($bupr_member)){
 							foreach($bupr_member as $user){
@@ -87,14 +82,16 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 						}
 						?>
 					</select>
-					<span>*</span>
+					<span class="bupr-fields">*</span>
 				</p>
 
-				<p class="bupr-fields">
-					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" ><span>*</span>
+				<p>
+					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" >
+					<span class="bupr-fields">*</span>
 				</p>
-				<p class="bupr-fields">
-					<textarea name="review-desc" id="review_desc" placeholder="Review Description" rows="3" cols="50"></textarea><span>*</span>
+				<p>
+					<textarea name="review-desc" id="review_desc" placeholder="Review Description" rows="3" cols="50" ></textarea>
+					<span class="bupr-fields">*</span>
 				</p>
 				<?php   
 				if(!empty($profile_rating_fields)){
