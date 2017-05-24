@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <h3>
             <?php _e( 'Reviews Short-Code ', BUPR_TEXT_DOMAIN );?>
         </h3>
+        <input type="hidden" class="bupr-tab-active" value="shortcode"/>
     </div>
 
     <div class="bupr-admin-settings-block">

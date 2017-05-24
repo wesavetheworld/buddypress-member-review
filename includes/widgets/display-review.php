@@ -59,19 +59,22 @@ class bupr_members_review_setting extends WP_Widget {
 						$review_ratings       = get_post_meta( $review->ID, 'profile_star_rating', false );                                               
 						//$reviews_field_count  = count( $bupr_review_rating_fields );
 						if(!empty($bupr_review_rating_fields) && !empty($review_ratings[0])):                                                  
-								foreach($review_ratings[0] as $field => $value){
-									if(in_array($field,$bupr_review_rating_fields)){
-										$rate += $value;
-										$reviews_field_count++;
-									}
+							foreach($review_ratings[0] as $field => $value){
+								if(in_array($field,$bupr_review_rating_fields)){
+									$rate += $value;
+									$reviews_field_count++;
 								}
+							}
+							if($reviews_field_count != 0){
 								$bupr_total_rating += (int)$rate/$reviews_field_count;
+							}
 						endif;                                 
 					}
-					
+					if($bupr_reviews_count != 0){
 						$bupr_avg_rating = $bupr_total_rating / $bupr_reviews_count;
-
 						$bupr_type = gettype( $bupr_avg_rating );
+					}
+					
 					
 
 				 $bupr_max_review[$user->data->ID] = array(

@@ -77,13 +77,18 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 								$reviews_field_count++;
 							}
 						}
-						$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;
+						if($reviews_field_count != 0){
+							$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;	
+						}
+						
 					endif;                                 
 				}
 				/* get average rating of members review */
-				$bupr_avg_rating = $bupr_total_rating / $reviews_count;
-				$bupr_type 		 = gettype( $bupr_avg_rating );
-
+				if($reviews_count != 0){
+					$bupr_avg_rating = $bupr_total_rating / $reviews_count;
+					$bupr_type 		 = gettype( $bupr_avg_rating );
+				}
+				
 				$bupr_stars_on 	 = $stars_off = $stars_half = '';
 
 				if( $bupr_type == 'integer' ){

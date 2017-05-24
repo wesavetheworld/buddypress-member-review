@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <h3>
             <?php _e( 'Review Criteria(s)', BUPR_TEXT_DOMAIN );?>
         </h3>
+        <input type="hidden" class="bupr-tab-active" value="criteria"/>
     </div>
 
     <div class="bupr-admin-settings-block">

@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <h3>
             <?php _e( 'General Settings', BUPR_TEXT_DOMAIN );?>
         </h3>
+        <input type="hidden" class="bupr-tab-active" value="general"/>
     </div>
 
     <div class="bupr-admin-settings-block">
