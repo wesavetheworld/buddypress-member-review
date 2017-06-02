@@ -21,9 +21,6 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 		public function __construct() {
 			add_action( 'bp_setup_nav', array($this, 'bupr_member_profile_reviews_tab' ) );
 
-			/* wbcom add new tab manage */
-			//add_action( 'bp_setup_nav', array($this, 'bupr_member_profile_manage_tab' ) );
-
 			add_action( 'init', array( $this, 'bupr_add_bp_member_reviews_taxonomy_term' ) );
 			add_filter( 'post_row_actions', array( $this, 'bupr_bp_member_reviews_row_actions' ), 10, 2 );
 			add_action( 'admin_footer-edit.php', array( $this, 'bupr_disable_review_title_edit_link' ) );
@@ -300,61 +297,6 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 		public function bupr_view_review_tab_function_to_show_content() {
 			include 'templates/bupr-single-review-template.php';
 		}
-
-
-		/**
-		* Actions performed to hide row actions
-		*
-		* @since    1.0.0
-		* @access   public
-		* @author   Wbcom Designs
-		*/
-		/* wbcom add manage tab in member */
-		//Action performed to add a tab for member profile reviews
-		/*public function bupr_member_profile_manage_tab() {
-			global $bp;
-			$name 				= bp_get_displayed_user_username();                        
-			$current_user      	= wp_get_current_user();
-			$current_member_id 	= $current_user->ID; 
-			$member_id         	= bp_displayed_user_id();  
-
-			if($member_id == $current_member_id){
-				$tab_args = array(
-					'name' 			=> __( 'Manage Reviews', BUPR_TEXT_DOMAIN ),
-					'slug' 			=> 'manage',
-					'screen_function' => array($this, 'bupr_manage_tab_function_to_show_screen'),
-					'position' 		=> 75,
-					'default_subnav_slug' => 'manage_sub',
-					'show_for_displayed_user' => true,
-				);
-				bp_core_new_nav_item($tab_args);
-				$parent_slug = 'manage';
-			} 
-                        
-		}*/
-
-		/**
-		* Action performed to show screen of reviews listing tab
-		*
-		* @since    1.0.0
-		* @access   public
-		* @author   Wbcom Designs
-		*/
-		/*public function bupr_manage_tab_function_to_show_screen() {
-			add_action('bp_template_content', array($this, 'bupr_manage_tab_function_to_show_content'));
-			bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
-		}*/
-
-		/**
-		* Action performed to show the content of reviews list tab
-		*
-		* @since    1.0.0
-		* @access   public
-		* @author   Wbcom Designs
-		*/
-		/*public function bupr_manage_tab_function_to_show_content() {
-			include 'templates/bupr-manage-tab-template.php';
-		}*/
 	}
 	new BUPR_Custom_Hooks();
 }
