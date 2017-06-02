@@ -30,7 +30,6 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 		* @author   Wbcom Designs
 		*/
 		function bupr_display_review_form(){
-			$bupr_spinner_src 		= includes_url().'/images/spinner.gif';
             $bupr_admin_settings = get_option( 'bupr_admin_settings' );                   
             if( !empty( $bupr_admin_settings ) ) {
                 $bupr_allow_popup           = $bupr_admin_settings['add_review_allow_popup'];
@@ -69,7 +68,7 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 				</p>
 
 				<p>
-					<select name="bupr_member_id" id="bupr_member_review_id" ><?php
+					<select name="bupr_member_id" id="bupr_member_review_id" required><?php
 						if(!empty($bupr_member)){
 							foreach($bupr_member as $user){
 								$id = $user['member_id']; 
@@ -82,16 +81,13 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 						}
 						?>
 					</select>
-					<span class="bupr-fields">*</span>
 				</p>
 
 				<p>
-					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" >
-					<span class="bupr-fields">*</span>
+					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" required>
 				</p>
 				<p>
-					<textarea name="review-desc" id="review_desc" placeholder="Review Description" rows="3" cols="50" ></textarea>
-					<span class="bupr-fields">*</span>
+					<textarea name="review-desc" id="review_desc" placeholder="Review Description" rows="3" cols="50" required></textarea>
 				</p>
 				<?php   
 				if(!empty($profile_rating_fields)){
@@ -121,7 +117,6 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 						<button type="button" class="btn btn-default" id="bupr_save_review" name="submit-review">
 						<?php _e( 'Submit Review', BUPR_TEXT_DOMAIN );?>
 						</button>
-						<img src="<?php echo $bupr_spinner_src;?>" class="bupr-save-reivew-spinner" />
 					</p>
 				</div>
 			</form><?php

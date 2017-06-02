@@ -112,8 +112,7 @@ jQuery(document).ready(function(){
         });
 
         // update review point in header
-         jQuery(document).on('click', '#bupr_save_review', function(){ 
-            
+         jQuery(document).on('click', '#bupr_save_review', function(){  
             var member_id       = jQuery('#bupr_member_review_id').val();
             var review_title    = jQuery('#review_subject').val();
             var review_desc     = jQuery('#review_desc').val();
@@ -122,43 +121,31 @@ jQuery(document).ready(function(){
             jQuery('.bupr-star-member-rating').each( function(index) {
                 review_rating[index] = jQuery(this).val();
             });
-            if(member_id == ''){
-                jQuery('.bupr-fields').show();
-            }else{
-                if(review_title == '' && review_desc == ''){
-                jQuery('.bupr-fields').show();
-                }else{
-                    jQuery('.bupr-save-reivew-spinner').show(); 
-                    jQuery.post(
-                    ajaxurl,
-                            {
-                            'action'            : 'allow_bupr_member_review_update',
-                            'bupr_member_id'    : member_id, 
-                            'bupr_review_title' : review_title,
-                            'bupr_review_desc'  : review_desc, 
-                            'bupr_review_rating': review_rating, 
-                            'bupr_field_counter' : review_count                                     
-                            },
-                            function(response) {
-                                jQuery('.bupr-save-reivew-spinner').hide(); 
-                                sessionStorage.reloadAfterPageLoad = true;
-                                var date = new Date();
-                                date.setTime(date.getTime() + (20 * 1000));
-                                jQuery.cookie('response', response, { expires: date });
-                                window.location.reload(); 
-                            }
-                    );
-                }
-            }
-                
+            
+            jQuery.post(
+                ajaxurl,
+                        {
+                        'action'            : 'allow_bupr_member_review_update',
+                        'bupr_member_id'    : member_id, 
+                        'bupr_review_title' : review_title,
+                        'bupr_review_desc'  : review_desc, 
+                        'bupr_review_rating': review_rating, 
+                        'bupr_field_counter' : review_count                                     
+                        },
+                        function(response) {
+                            sessionStorage.reloadAfterPageLoad = true;
+                            var date = new Date();
+                            date.setTime(date.getTime() + (20 * 1000));
+                            jQuery.cookie('response', response, { expires: date });
+                            window.location.reload(); 
+                        }
+                );
         });
 
         jQuery( function () {
             if ( jQuery.cookie('response')) {
                 jQuery('.bp-member-add-form').parent().parent().before(jQuery.cookie('response'));
                 jQuery.cookie('response' , "" , -1);
-                jQuery('#review_subject').val('');
-                jQuery('#review_desc').val('');
             }
         } );
 

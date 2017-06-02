@@ -131,10 +131,10 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 
 			        $review_id = wp_insert_post( $add_review_args );
 			        if($review_id){
-			        	_e( '<p class="bupr-success"><b> Successfully! </b>Review added.</p>', BUPR_TEXT_DOMAIN );
+			        	_e( '<p>Review added successfully</p>', BUPR_TEXT_DOMAIN );
 
 			        }else{
-			        	_e( '<p class="bupr-error"><b>Unsuccessfully! </b> Review added.</p>', BUPR_TEXT_DOMAIN );
+			        	_e( '<p>Review added unsuccessfully</p>', BUPR_TEXT_DOMAIN );
 			        }
 
 			        wp_set_object_terms( $review_id, 'BP Member', 'review_category' );  
@@ -144,7 +144,7 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			            update_post_meta( $review_id, 'profile_star_rating', $bupr_rated_stars );
 			        endif;
 			    }else{
-			    	_e( '<p class="bupr-error"><b>Sorry! </b> Pleaas select a member.</p>', BUPR_TEXT_DOMAIN );
+			    	_e( '<p>Pleaas select a member</p>', BUPR_TEXT_DOMAIN );
 			    }
 			    die;
 			}

@@ -1,33 +1,6 @@
 .stars{
     display: inline-block;
 }
-.bupr-fields{
-    display:none;
-    color:red;
-}
-.bupr-save-reivew-spinner{
-    display:none;
-}
-
-
-/* bupr success and error msg */
-.bupr-success{
-    width:90%;
-    padding:10px;
-    border-radius:5px;
-    background-color:hsl(103, 44%, 89%);
-    border-color:hsl(93, 44%, 85%);
-    color:hsl(121, 33%, 35%);
-}
-.bupr-error{
-    width:90%;
-    padding:10px;
-    border-radius:5px;
-    background-color:hsl(0, 43%, 91%);
-    border-color:hsl(350, 44%, 86%);
-    color:hsl(1, 44%, 46%);
-}
-
 /*** css classes for reviews ***/
 [class*="bupr-col-"] {
     float: left;
