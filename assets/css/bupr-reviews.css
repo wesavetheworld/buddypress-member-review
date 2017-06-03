@@ -116,4 +116,7 @@
 }
 
 .modal-body {padding: 2px 16px;}
+.bupr-save-reivew-spinner{
+    display:none;
+}
 

@@ -59,27 +59,35 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 
 			if( !empty( $bupr_reviews ) ){
 				$bupr_total_rating = 0;
+				$bupr_avg_rating   = 0;
+				$bupr_type = 'integer';
 				$reviews_count = count( $bupr_reviews );
-
+				$bupr_total_review_count	= 0;
 				foreach( $bupr_reviews as $review ){
 					$bupr_rate 				= 0;
 					$reviews_field_count 	= 0;
 					$review_ratings      	= get_post_meta( $review->ID, 'profile_star_rating', false );  
-					                                             
+					                                         
 					if(!empty($bupr_review_rating_fields) && !empty($review_ratings[0])):  
-
 						foreach($review_ratings[0] as $field => $value){
 							if(in_array($field,$bupr_review_rating_fields)){
 								$bupr_rate += $value;
 								$reviews_field_count++;
 							}
 						}
-						$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;
+						if($reviews_field_count != 0){
+							$bupr_total_rating += (int)$bupr_rate / $reviews_field_count;
+							$bupr_total_review_count++;
+						}
+						
 					endif;                                 
 				}
 				/* get average rating of members review */
-				$bupr_avg_rating = $bupr_total_rating / $reviews_count;
-				$bupr_type 		 = gettype( $bupr_avg_rating );
+				if($bupr_total_review_count != 0){
+					$bupr_avg_rating = $bupr_total_rating / $bupr_total_review_count;
+					$bupr_type 		 = gettype( $bupr_avg_rating );
+				}
+				
 
 				$bupr_stars_on 	 = $stars_off = $stars_half = '';
 

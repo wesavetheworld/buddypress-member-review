@@ -21,10 +21,6 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		public function __construct() {
 			add_action( 'wp_ajax_bupr_save_admin_settings', array( $this, 'bupr_save_admin_settings' ) );
 			add_action( 'wp_ajax_nopriv_bupr_save_admin_settings', array( $this, 'bupr_save_admin_settings' ) );
-			add_action( 'wp_ajax_bupr_accept_review', array( $this, 'bupr_accept_review' ) );
-			add_action( 'wp_ajax_nopriv_bupr_accept_review', array( $this, 'bupr_accept_review' ) );
-			add_action( 'wp_ajax_bupr_deny_review', array( $this, 'bupr_deny_review' ) );
-			add_action( 'wp_ajax_nopriv_bupr_deny_review', array( $this, 'bupr_deny_review' ) );
 
 			add_action( 'wp_ajax_allow_bupr_member_review_update', array( $this, 'wp_allow_bupr_my_member' ) );
 			add_action( 'wp_ajax_nopriv_allow_bupr_member_review_update', array( $this, 'wp_allow_bupr_my_member' ) );	
@@ -55,39 +51,14 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			}
 		}
 
-        /**
-		* Actions performed when accept review
-		*
-		* @since    1.0.0
-		* @author   Wbcom Designs
-		*/
-        function bupr_accept_review(){
-            $post_id = sanitize_text_field($_POST['bupr_accept_review_id']); 
-            wp_publish_post( $post_id );
-            die;
-        }
-
-
-        /**
-		* Actions performed when deny review
-		*
-		* @since    1.0.0
-		* @author   Wbcom Designs
-		*/
-		function bupr_deny_review(){
-			$post_id = sanitize_text_field($_POST['bupr_deny_review_id']); 
-			wp_trash_post( $post_id ); 
-			die;
-		}
-
-
 		/**
 		* Add review to member's profile
 		*
 		* @since    1.0.0
+		* @access   public
 		* @author   Wbcom Designs
 		*/
-		function wp_allow_bupr_my_member(){
+		public function wp_allow_bupr_my_member(){
 			if(isset( $_POST['action'] ) && $_POST['action'] == 'allow_bupr_member_review_update') {
 		        
 				$bupr_admin_settings = get_option( 'bupr_admin_settings' );                   
@@ -131,10 +102,10 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 
 			        $review_id = wp_insert_post( $add_review_args );
 			        if($review_id){
-			        	_e( '<p>Review added successfully</p>', BUPR_TEXT_DOMAIN );
+			        	_e( '<p class="bupr-success">Review added successfully</p>', BUPR_TEXT_DOMAIN );
 
 			        }else{
-			        	_e( '<p>Review added unsuccessfully</p>', BUPR_TEXT_DOMAIN );
+			        	_e( '<p class="bupr-error">Review added unsuccessfully</p>', BUPR_TEXT_DOMAIN );
 			        }
 
 			        wp_set_object_terms( $review_id, 'BP Member', 'review_category' );  
@@ -144,7 +115,7 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			            update_post_meta( $review_id, 'profile_star_rating', $bupr_rated_stars );
 			        endif;
 			    }else{
-			    	_e( '<p>Pleaas select a member</p>', BUPR_TEXT_DOMAIN );
+			    	_e( '<p class="bupr-error">Pleaas select a member</p>', BUPR_TEXT_DOMAIN );
 			    }
 			    die;
 			}
