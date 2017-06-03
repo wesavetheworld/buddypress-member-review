@@ -9,13 +9,13 @@ function bupr_members_review_widget() {
 class bupr_members_review_setting extends WP_Widget {
 
 	/** constructor -- name this the same as the class above */
-	function __construct() {
+	public function __construct() {
 		$widget_ops = array( 'classname' => 'bupr_members_review_setting', 'description' => __('Display members list according to members reviews ', BUPR_TEXT_DOMAIN) );
 		$control_ops = array( 'width' => 280, 'height' => 350, 'id_base' => 'bupr_members_review_setting' );
 		parent::__construct( 'bupr_members_review_setting', __(' Members Reviews : Display members list accoding to reviews', BUPR_TEXT_DOMAIN), $widget_ops, $control_ops );
 	}
 				
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		extract( $args );
 
 		global $wpdb;
@@ -171,18 +171,18 @@ class bupr_members_review_setting extends WP_Widget {
 	}
  
 	/* wbcom sort member list acording to max review */
-	function bupr_sort_max_review($bupr_rating1, $bupr_rating2)
+	public function bupr_sort_max_review($bupr_rating1, $bupr_rating2)
 	{
 		return strcmp($bupr_rating2['max_review'] , $bupr_rating1['max_review']);
 	}
 
 	/* wbcom sort member list according to max star */
-	function bupr_sort_max_stars($bupr_rating1, $bupr_rating2){
+	public function bupr_sort_max_stars($bupr_rating1, $bupr_rating2){
 		return strcmp($bupr_rating2['avg_rating'] , $bupr_rating1['avg_rating']);
 	}
 
 	/** @see WP_Widget::update -- do not rename this */
-	function update($new_instance, $old_instance) {   
+	public function update($new_instance, $old_instance) {   
 		$instance = $old_instance;
 		$instance['bupr_title']   = strip_tags($new_instance['bupr_title']);
 		$instance['bupr_member']  = $new_instance['bupr_member'];
@@ -191,8 +191,8 @@ class bupr_members_review_setting extends WP_Widget {
 		return $instance;
 	}
  
-		/** @see WP_Widget::form -- do not rename this */
-	function form($instance) {  
+	/** @see WP_Widget::form -- do not rename this */
+	public function form($instance) {  
 		$defaults = array( 
 			'bupr_title'  => __('Top Members',BUPR_TEXT_DOMAIN),
 			'bupr_member' => 5,

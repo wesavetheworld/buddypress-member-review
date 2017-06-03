@@ -36,15 +36,15 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		public function bupr_save_admin_settings() {
 			if( isset( $_POST['action'] ) && $_POST['action'] === 'bupr_save_admin_settings' ) {
 				
-				$allow_popup            = sanitize_text_field( $_POST['allow_popup'] );
-				$reviews_per_page       = sanitize_text_field( $_POST['profile_reviews_per_page'] );
-				$rating_fields          = array_map('sanitize_text_field', wp_unslash($_POST['field_values']));
-				$profile_rating_fields  = array_unique($rating_fields); 
+				$allow_popup 			= sanitize_text_field( $_POST['allow_popup'] );
+				$reviews_per_page   	= sanitize_text_field( $_POST['profile_reviews_per_page'] );
+				$rating_fields     		= array_map('sanitize_text_field', wp_unslash($_POST['field_values']));
+				$profile_rating_fields  = array_unique($rating_fields);
 				$bupr_admin_settings 	= array(
-						'add_review_allow_popup'  => $allow_popup , 
-						'profile_reviews_per_page'=> $reviews_per_page,
-				        'profile_rating_fields'   => $profile_rating_fields 
-						);
+					'add_review_allow_popup'  => $allow_popup ,
+					'profile_reviews_per_page'=> $reviews_per_page,
+					'profile_rating_fields'   => $profile_rating_fields 
+				);
 				update_option( 'bupr_admin_settings', $bupr_admin_settings );
 				echo 'admin-settings-saved';
 				die;                              
@@ -63,22 +63,21 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		        
 				$bupr_admin_settings = get_option( 'bupr_admin_settings' );                   
 				if( !empty( $bupr_admin_settings ) ) {
-					$bupr_allow_popup           = $bupr_admin_settings['add_review_allow_popup'];
-					$profile_rating_fields 		= $bupr_admin_settings['profile_rating_fields']; 
+					$profile_rating_fields 	= $bupr_admin_settings['profile_rating_fields']; 
 				}
 
 				$review_subject  = sanitize_text_field( $_POST['bupr_review_title'] );
 				$review_desc     = sanitize_text_field( $_POST['bupr_review_desc'] );
 				$bupr_memberID   = sanitize_text_field( $_POST['bupr_member_id'] );
-				$review_count    = sanitize_text_field( $_POST['bupr_field_counter'] ); 
+				$review_count    = sanitize_text_field( $_POST['bupr_field_counter'] );
 
-		        $profile_rated_field_values = array_map('sanitize_text_field', wp_unslash($_POST['bupr_review_rating']));
+				$profile_rated_field_values = array_map('sanitize_text_field', wp_unslash($_POST['bupr_review_rating']));
 
 		        $bupr_count = 0;
 		        $bupr_member_star = array();
 		        if(!empty($profile_rated_field_values)){
-					foreach($profile_rated_field_values as $bupr_stars_rate){
-						if($bupr_count == $review_count){
+		        	foreach($profile_rated_field_values as $bupr_stars_rate){
+		        		if($bupr_count == $review_count){
 							break;
 						}else{
 							$bupr_member_star[] = $bupr_stars_rate;
@@ -105,7 +104,7 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			        	_e( '<p class="bupr-success">Review added successfully</p>', BUPR_TEXT_DOMAIN );
 
 			        }else{
-			        	_e( '<p class="bupr-error">Review added unsuccessfully</p>', BUPR_TEXT_DOMAIN );
+			      		_e( '<p class="bupr-error">Review added unsuccessfully</p>', BUPR_TEXT_DOMAIN );
 			        }
 
 			        wp_set_object_terms( $review_id, 'BP Member', 'review_category' );  
