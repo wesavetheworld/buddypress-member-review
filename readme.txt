@@ -1,7 +1,7 @@
 === BuddyPress User Profile Reviews ===
 Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
-Tags: buddypress, members
+Tags: buddypress, members rating, bbPress, Rating, Ratings, Review, Reviews, Member Reviews
 Requires at least: 3.0.1
 Tested up to: 4.7
 Stable tag: 4.6
