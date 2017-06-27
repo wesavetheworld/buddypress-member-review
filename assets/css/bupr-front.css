@@ -35,7 +35,15 @@
     display: none;
     padding-top: 20px;
 }
-
+.bupr-criteria-label span{
+    display: inline;
+    float: left;
+    width: 50%;
+    height:40px;
+}
+.sel{
+    color:red;
+}
 .bupr-accept-button,.bupr-deny-button{
     float :left;
     margin-right: 5px;
@@ -47,13 +55,14 @@
 /* widget css for front-end */
 .bupr-members{
     border-bottom: 1px solid hsl(0, 0%, 87%);
-    height: 100px;
+    height: 115px;
     width: 100%;
     text-align:center;
 }
 .members{
     text-transform: capitalize;
     text-align:left;
+    padding:0px;
 }
 .members p{
     margin:5px 0px!important;
@@ -107,22 +116,88 @@
 .bupr-save-reivew-spinner{
     display:none;
 }
+
 .bupr-fields{
-    color:red;
     display:none;
+    color:red;
 }
-/* review success msg */
-.bupr-success {
+/* bupr success and error msg */
+.bupr-success{
     background-color: hsl(103, 44%, 89%);
     border-color: hsl(92, 44%, 85%);
     border-radius: 5px;
     color: hsl(121, 33%, 35%);
+    margin-top: 10px;
     padding: 10px;
+    width: 100%;
 }
 .bupr-error{
-    background-color: hsl(0, 43%, 91%);
-    border-color: hsl(350, 44%, 86%);
-    color: hsl(1, 44%, 46%);
-    padding: 10px;
-    border-radius: 5px;
+    width:100%;
+    padding:10px;
+    border-radius:5px;
+    background-color:hsl(0, 43%, 91%);
+    border-color:hsl(350, 44%, 86%);
+    color:hsl(1, 44%, 46%);
+    margin-top: 10px;
 }
+
+/* square rating */
+.br-theme-bars-square .bupr-rating-widget {
+  height: 15px;
+  white-space: nowrap;
+}
+.br-theme-bars-square .bupr-rating-widget a {
+  display: block;
+  width: 28px;
+  height: 28px;
+  float: left;
+  border: 2px solid #bbcefb;
+  background-color: white;
+  margin: 2px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 2;
+  text-align: center;
+  color: #bbcefb;
+  font-weight: 600;
+}
+.br-theme-bars-square .bupr-rating-widget a.bupr-square-selected{
+  border: 2px solid #4278F5;
+  color: #4278F5;
+}
+
+.br-theme-bars-square .br-readonly a {
+  cursor: default;
+}
+.br-theme-bars-square .br-readonly a.bupr-square-selected{
+  border: 2px solid #729bf8;
+  color: #729bf8;
+}
+@media print {
+  .br-theme-bars-square .bupr-rating-widget a {
+    border: 2px solid #b3b3b3;
+    color: #b3b3b3;
+  }
+}
+
+/* square half rating box */
+.br-theme-bars-square .br-readonly a.bupr-square-half{
+  border-top: 2px solid #729bf8;
+  color: #729bf8;
+  border-left: 2px solid #729bf8;
+  color: #729bf8;
+}
+.br-theme-bars-square .bupr-rating-widget a.bupr-square-half{
+  border-top: 2px solid #4278F5;
+  color: #4278F5;
+  border-left: 2px solid #4278F5;
+  color: #4278F5;
+}
+.item-header-content .activity{
+  margin-bottom:10px;
+}
+.modal-header h2{
+  margin:0px!important;
+}
+

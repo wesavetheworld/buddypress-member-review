@@ -16,5 +16,6 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-/* delete all option */
+
 delete_option('bupr_admin_settings'); 
+

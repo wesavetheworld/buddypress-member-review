@@ -2,6 +2,20 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
+	/* get display tab setting from db */
+    $bupr_star_color    = '#eeee22';
+    $bupr_star_type     = 'Stars Rating';
+    $bupr_review_title  = 'Reviews';
+    $bupr_display_settings  = get_option( BUPR_DISPLAY_OPTIONS , true );
+    if( !empty( $bupr_display_settings ) && !empty($bupr_display_settings['bupr_review_title'])) {
+        $bupr_review_title  = $bupr_display_settings['bupr_review_title'];
+    }
+    if( !empty( $bupr_display_settings ) && !empty($bupr_display_settings['bupr_star_color'])) {
+        $bupr_star_color    = $bupr_display_settings['bupr_star_color'];
+    }
+    if( !empty( $bupr_display_settings ) && !empty($bupr_display_settings['bupr_star_type'])) {
+        $bupr_star_type     = $bupr_display_settings['bupr_star_type'];
+    }
 	$url 			= $_SERVER['REQUEST_URI'];
 	preg_match_all('!\d+!', $url, $matches);
 	$review_id 		= $matches[0][0];
@@ -52,30 +66,78 @@ defined( 'ABSPATH' ) || exit;
 				</span>
 				<p><?php  _e($review->post_content , BUPR_TEXT_DOMAIN); ?></p>
 				<?php
-				$bupr_admin_settings         = get_option( 'bupr_admin_settings' );
-				$member_review_rating_fields = $bupr_admin_settings['profile_rating_fields'];
+				$bupr_admin_settings  = get_option( 'bupr_admin_settings' );
+
+                $member_review_rating_fields = $bupr_admin_settings['profile_rating_fields'];
+                $bupr_rating_criteria = array();
+                if(!empty($member_review_rating_fields)){
+                    foreach($member_review_rating_fields as $bupr_keys => $bupr_fields){
+                        $bupr_rating_criteria[] = $bupr_keys;
+                    }
+                }
 				$member_review_ratings       = get_post_meta( $review->ID, 'profile_star_rating',false);
+                if(!empty($member_review_rating_fields) && !empty($member_review_ratings[0])):                                           
+                    foreach($member_review_ratings[0] as $field => $bupr_value){
 
-				if(!empty($member_review_rating_fields) && !empty($member_review_ratings[0])):
-					foreach($member_review_ratings[0] as $field => $value){
-						if(in_array($field,$member_review_rating_fields)){
-							_e('<div class="bupr-col-4">'.$field.' <br> ',BUPR_TEXT_DOMAIN);
+                        if(in_array($field,$bupr_rating_criteria)){
+                            
+                            _e('<div class="bupr-col-6 multi-review">'.$field.' <br> ',BUPR_TEXT_DOMAIN);
+                            if(!empty($bupr_star_type) && $bupr_star_type == 'Stars Rating'){
+                                /*** star rating Ratings *****/
+                                $stars_on  = $bupr_value;
+                                $stars_off = 5 - $stars_on; 
+                                for( $i = 1; $i <= $stars_on; $i++ ){
+                                    ?><img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star.png";?>" alt="star"><?php
+                                }
 
-							/*** Ratings *****/
-							$stars_on  = $value;
-							$stars_off = 5 - $stars_on; 
+                                for( $i = 1; $i <= $stars_off; $i++ ){
+                                    ?><img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star_off.png";?>" alt="star"><?php
+                                }
+                                /*star rating end */
+                            }else if(!empty($bupr_star_type) && $bupr_star_type == 'Numbers Rating'){
+                                /* square rating start */
+                                echo '<select class="display-square-rating-value" name="rating" autocomplete="off">';
+                                echo '<option value=""></option>';
+                                for($i = 1; $i <= 5 ; $i++){
+                                    if($i <= $bupr_value){
+                                        echo '<option rate="selected" value="'.$i.'">'.$i.'</option>';
+                                    }else{
+                                        echo '<option rate="unselected" value="0">'.$i.'</option>';
+                                    }
+                                }
+                                echo '</select>';
+                                /* square rating end */
+                            }else if(!empty($bupr_star_type) && $bupr_star_type == 'Bar Rating'){
+                                /* square rating start */
+                                echo '<select class="bupr-display-pill-header bupr-display-pill-header-class" name="rating" autocomplete="off">';
+                                echo '<option value=""></option>';
+                                for($i = 1; $i <= 5 ; $i++){
+                                    if($i <= $bupr_value){
+                                        echo '<option rate="selected" value="'.$i.'"></option>';
+                                    }else{
+                                        echo '<option rate="unselected" value="0"></option>';
+                                    }
+                                }
+                                echo '</select>';
+                                /* square rating end */
+                            }else{
+                                /*** star rating Ratings *****/
+                                $stars_on  = $bupr_value;
+                                $stars_off = 5 - $stars_on; 
+                                for( $i = 1; $i <= $stars_on; $i++ ){
+                                    ?><img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star.png";?>" alt="star"><?php
+                                }
 
-							for( $i = 1; $i <= $stars_on; $i++ ){ ?>
-								<img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star.png";?>" alt="star"><?php
-							}
-
-							for( $i = 1; $i <= $stars_off; $i++ ){ ?>
-								<img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star_off.png";?>" alt="star"><?php
-							}
-							_e('</div>',BUPR_TEXT_DOMAIN);
-						}
-					}
-				endif; ?>
+                                for( $i = 1; $i <= $stars_off; $i++ ){
+                                    ?><img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star_off.png";?>" alt="star"><?php
+                                }
+                                /*star rating end */
+                            }
+                            
+                            _e('</div>',BUPR_TEXT_DOMAIN);
+                        }
+                    }
+                endif; ?>
 			</div>
 		</article>
 	</div>
