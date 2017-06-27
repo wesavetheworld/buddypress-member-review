@@ -42,20 +42,22 @@ defined( 'ABSPATH' ) || exit;
     <div class="bupr-bp-member-reviews-block">
         <div class="reviews-header" id="add_more_review">
             <p>
-                <?php _e('Reviews' , 'bp-group-reviews'); 
-                if( $allow_popup == 'yes' ) { ?>
-                    <span class="bupr-add-review">
-                        <a href="javascript:void(0)" id="bupr-add-review">
-                            <?php _e('+Add' ,'bp-group-reviews'); ?>
-                        </a>
-                    </span><?php
-                } else { ?>
-                    <span class="bupr-add-review">
-                        <a href="javascript:void(0)" id="bupr-add-review-no-popup">
-                            <?php _e('+Add' ,'bp-group-reviews'); ?>
-                        </a>
-                    </span><?php
-                } ?>
+                <?php _e('Reviews' , 'bp-group-reviews');
+                if( bp_displayed_user_id() != get_current_user_id() ) {
+                    if( $allow_popup == 'yes' ) { ?>
+                        <span class="bupr-add-review">
+                            <a href="javascript:void(0)" id="bupr-add-review">
+                                <?php _e('+Add' ,'bp-group-reviews'); ?>
+                            </a>
+                        </span><?php
+                    } else { ?>
+                        <span class="bupr-add-review">
+                            <a href="javascript:void(0)" id="bupr-add-review-no-popup">
+                                <?php _e('+Add' ,'bp-group-reviews'); ?>
+                            </a>
+                        </span><?php
+                    }
+                }?>
             </p>
             <div id="add_review_msg" class="info isdismiss"></div>
         </div>
@@ -63,20 +65,13 @@ defined( 'ABSPATH' ) || exit;
         if( $allow_popup == 'no' ) { ?>
         <!-- ADD REVIEW IF NO POPUP -->
             <div class="bupr-bp-member-review-no-popup-add-block">
-                <?php 
-                if( bp_displayed_user_id() == get_current_user_id() ){ ?>
-                    <div id="message" class="info isdismiss">
-                         <?php _e('<p> You can not reivew on your own profile. </p>' , BUPR_PLUGIN_URL); ?>
-                    </div><?php
-                }else if( is_user_logged_in() ) {
-                do_shortcode('[add_profile_review_form]');
-
-                }else{?>
+                <?php if( is_user_logged_in() ) {?>
+                <?php do_shortcode('[add_profile_review_form]');?>
+                <?php } else {?>
                     <div id="message" class="info">
                          <?php _e('<p> You must login !. </p>' , BUPR_PLUGIN_URL); ?>
-                    </div><?php
-                } 
-                ?>	
+                    </div>
+                <?php }?>
             </div><?php 
         }?>
 

@@ -71,7 +71,7 @@ if( !class_exists( 'BUPR_Admin' ) ) {
 			$args = array(
 				'labels'				=>	$labels,
 				'public'				=>	true,
-				'menu_icon'				=>	BUPR_PLUGIN_URL.'admin/assets/images/review.png',
+				'menu_icon'				=>	'dashicons-testimonial',
 				'publicly_queryable'	=>	true,
 				'show_ui'				=>	true,
 				'show_in_menu'			=>	true,
