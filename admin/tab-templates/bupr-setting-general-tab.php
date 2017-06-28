@@ -6,11 +6,16 @@ $bupr_spinner_src = includes_url().'/images/spinner.gif';
 
 /* admin setting on dashboard */
 $bupr_admin_settings = get_option( BUPR_GENERAL_OPTIONS , true );
-$bupr_allow_popup = $bupr_allow_email = $bupr_exc_member = $bupr_allow_notification ='' ;
+$bupr_allow_popup = $bupr_auto_approve_reviews = $bupr_allow_email = $bupr_exc_member = $bupr_allow_notification ='' ;
 $profile_reviews_per_page = 3;
 if( !empty( $bupr_admin_settings ) && !empty($bupr_admin_settings['add_review_allow_popup'])) {
     $bupr_allow_popup    = $bupr_admin_settings['add_review_allow_popup'];
-} 
+}
+
+if( !empty( $bupr_admin_settings ) && !empty($bupr_admin_settings['bupr_auto_approve_reviews'])) {
+    $bupr_auto_approve_reviews    = $bupr_admin_settings['bupr_auto_approve_reviews'];
+}
+
 if( !empty( $bupr_admin_settings ) && !empty($bupr_admin_settings['bupr_allow_email'])) {
     $bupr_allow_email    = $bupr_admin_settings['bupr_allow_email'];
 }
@@ -30,7 +35,7 @@ $bupr_member_data   = array();
 if(!empty($bupr_members)){
     foreach($bupr_members as $bupr_member){
         $bupr_key       = $bupr_member->data->ID;
-        $bupr_member_data[$bupr_key] = $bupr_member->data->user_nicename;
+        $bupr_member_data[$bupr_key] = $bupr_member->data->display_name;
     } 
 }
 
@@ -77,6 +82,21 @@ if(!empty($bupr_exc_member)){
                         <div class="bupr-slider bupr-round"></div>
                     </label>
                     <p><?php _e("Enable this option,if you want to show <b>Add Review</b> in modal box." , BUPR_TEXT_DOMAIN); ?></p>
+                </div>
+            </div>
+
+            <div class="bupr-admin-row border">
+                <div class="bupr-admin-col-6 bupr-label">
+                    <label for="bupr_review_auto_approval">
+                        <?php _e( 'Auto approve reviews ', BUPR_TEXT_DOMAIN );?>
+                     </label>
+                </div> 
+                <div class="bupr-admin-col-6 ">   
+                    <label class="bupr-switch">
+                        <input type="checkbox" id="bupr_review_auto_approval" <?php _e($bupr_auto_approve_reviews == 'yes' ? 'checked' : '' , BUPR_TEXT_DOMAIN); ?>>
+                        <div class="bupr-slider bupr-round"></div>
+                    </label>
+                    <p><?php _e("Enable this option, if you want reviews to be automatically approved, else manual approval will be required." , BUPR_TEXT_DOMAIN); ?></p>
                 </div>
             </div>
 

@@ -252,6 +252,11 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 					
 					$actions['view_review'] = '<a href="'.$review_url.'" title="'.$review_title.'">View Review</a>';
 				}
+
+				//Add Approve Link for draft reviews
+				if( $post->post_status == 'draft' ) {
+					$actions['approve_review'] = '<a href="javascript:void(0);" title="'.$review_title.'" class="bupr-approve-review" data-rid="'.$post->ID.'">Approve</a>';
+				}
 			}
 			return $actions;
 		}

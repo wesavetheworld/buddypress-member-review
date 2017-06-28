@@ -67,6 +67,14 @@ jQuery(document).ready(function(){
 			bupr_allow_email = 'no';
 		}
 
+		/* Reviews auto approval */
+		bupr_auto_approve_reviews = '';
+		if( jQuery( '#bupr_review_auto_approval' ).is( ':checked' ) ) {
+			bupr_auto_approve_reviews = 'yes';
+		} else {
+			bupr_auto_approve_reviews = 'no';
+		}
+
 		/* Review notification value */
 		bupr_allow_notification = '';
 		if( jQuery( '#bupr_review_notification' ).is( ':checked' ) ) {
@@ -78,12 +86,13 @@ jQuery(document).ready(function(){
     	jQuery.post(
 			bupr_admin_ajax_object.ajaxurl,
 			{
-				'action' 				: 'bupr_admin_tab_generals',
-				'bupr_allow_popup' 		: bupr_allow_popup,
-				'bupr_allow_email' 		: bupr_allow_email,
-				'bupr_allow_notification' : bupr_allow_notification,
-				'bupr_reviews_per_page' : bupr_reviews_per_page,
-				'bupr_exc_member' : bupr_exc_member
+				'action' 					: 'bupr_admin_tab_generals',
+				'bupr_allow_popup' 			: bupr_allow_popup,
+				'bupr_allow_email' 			: bupr_allow_email,
+				'bupr_allow_notification' 	: bupr_allow_notification,
+				'bupr_reviews_per_page' 	: bupr_reviews_per_page,
+				'bupr_exc_member' 			: bupr_exc_member,
+				'bupr_auto_approve_reviews'	: bupr_auto_approve_reviews, 
 			}, 
 			function ( response ) {
 				if( response === 'admin-settings-saved' ) {
@@ -205,6 +214,25 @@ jQuery(document).ready(function(){
 					jQuery( '#bupr_settings_updated' ).show();
 					jQuery( '#bupr-save-display-settings' ).removeClass('bupr-btn-ajax');
 					jQuery('.bupr-admin-settings-spinner').hide();
+				}
+			}
+		);
+	});
+
+	jQuery(document).on('click', '.bupr-approve-review', function(){
+		var review_id = jQuery(this).data('rid');
+		jQuery(this).html('Approving..');
+		jQuery.post(
+			bupr_admin_ajax_object.ajaxurl,
+			{
+				'action' 		: 'bupr_approve_review',
+				'review_id' 	: review_id
+			},
+			function ( response ) {
+				if( response == 'review-approved-successfully' ) {
+					window.location.href = window.location.href;
+				} else {
+					console.log("Review not approved!");
 				}
 			}
 		);

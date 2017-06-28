@@ -230,3 +230,6 @@ color:white;
 .bupr-show-if-allowed{
   display: none;
 }
+.bupr-approve-review{
+  color: green;
+}

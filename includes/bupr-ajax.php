@@ -20,6 +20,10 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		*/
 		public function __construct() {
 
+			/* add action for approving reviews */ 
+			add_action( 'wp_ajax_bupr_approve_review',array( $this, 'bupr_approve_review' ) );
+			add_action( 'wp_ajax_nopriv_bupr_approve_review', array( $this, 'bupr_approve_review' ) );
+
 			/* add action for general tab admin setting */ 
 			add_action( 'wp_ajax_bupr_admin_tab_generals', array( $this, 'bupr_admin_tab_general_settings' ) );
 			add_action( 'wp_ajax_nopriv_bupr_admin_tab_generals', array( $this, 'bupr_admin_tab_general_settings' ) );
@@ -38,6 +42,22 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		}
 
 		/**
+		 *
+		 */
+		public function bupr_approve_review() {
+			if( isset( $_POST['action'] ) && $_POST['action'] == 'bupr_approve_review' ) {
+				$rid = sanitize_text_field( $_POST['review_id'] );
+				$args = array(
+					'ID'			=>	$rid,
+					'post_status'	=>	'publish'
+				);
+				wp_update_post( $args );
+				echo 'review-approved-successfully';
+				die;
+			}
+		}
+
+		/**
 		* Actions performed for saving admin settings general tab
 		*
 		* @since    1.0.0
@@ -47,11 +67,12 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		function bupr_admin_tab_general_settings() {
 			if( isset( $_POST['action'] ) && $_POST['action'] === 'bupr_admin_tab_generals' ) {
 				
-				$bupr_allow_popup		= sanitize_text_field($_POST['bupr_allow_popup']);
-				$bupr_allow_email		= sanitize_text_field($_POST['bupr_allow_email']);
-				$bupr_allow_notification = sanitize_text_field($_POST['bupr_allow_notification']);
-				$bupr_reviews_per_page  = sanitize_text_field($_POST['bupr_reviews_per_page']);
-				$bupr_exc_member   = array_map('sanitize_text_field', wp_unslash($_POST['bupr_exc_member']));
+				$bupr_allow_popup				= sanitize_text_field($_POST['bupr_allow_popup']);
+				$bupr_auto_approve_reviews		= sanitize_text_field($_POST['bupr_auto_approve_reviews']);
+				$bupr_allow_email				= sanitize_text_field($_POST['bupr_allow_email']);
+				$bupr_allow_notification 		= sanitize_text_field($_POST['bupr_allow_notification']);
+				$bupr_reviews_per_page  		= sanitize_text_field($_POST['bupr_reviews_per_page']);
+				$bupr_exc_member   				= array_map('sanitize_text_field', wp_unslash($_POST['bupr_exc_member']));
 				$bupr_exclude_id = array();
 				if(!empty($bupr_exc_member)){
 					foreach($bupr_exc_member as $bupr_id){
@@ -60,11 +81,12 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 				}
 				
 				$bupr_general_options 	= array(
-						'add_review_allow_popup'  	=> $bupr_allow_popup , 
-						'profile_reviews_per_page'	=> $bupr_reviews_per_page,
-						'bupr_allow_email'			=> $bupr_allow_email,
-						'bupr_allow_notification' 	=> $bupr_allow_notification,
-						'bupr_exc_member'			=> $bupr_exclude_id
+						'add_review_allow_popup'  		=> $bupr_allow_popup,
+						'bupr_auto_approve_reviews'  	=> $bupr_auto_approve_reviews, 
+						'profile_reviews_per_page'		=> $bupr_reviews_per_page,
+						'bupr_allow_email'				=> $bupr_allow_email,
+						'bupr_allow_notification' 		=> $bupr_allow_notification,
+						'bupr_exc_member'				=> $bupr_exclude_id
 						);
 				update_option( BUPR_GENERAL_OPTIONS , $bupr_general_options );
 				echo 'admin-settings-saved';
@@ -157,6 +179,16 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 						}
 					}
 				}
+
+				$bupr_auto_approve_reviews = 'no';
+				$bupr_reviews_status = 'draft';
+				$bupr_admin_general_settings = get_option( BUPR_GENERAL_OPTIONS , true );
+				if( !empty( $bupr_admin_general_settings ) && !empty($bupr_admin_general_settings['bupr_auto_approve_reviews'])) {
+				    $bupr_auto_approve_reviews    = $bupr_admin_general_settings['bupr_auto_approve_reviews'];
+				    if( $bupr_auto_approve_reviews == 'yes' ) {
+				    	$bupr_reviews_status = 'publish';
+				    }
+				}
 				
 				//print_r($profile_rating_fields);
 				$bupr_current_user  = sanitize_text_field( $_POST['bupr_current_user'] );
@@ -190,8 +222,10 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			            'post_type'     => 'review',
 			            'post_title'    => $review_subject,
 			            'post_content'  => $review_desc,
-			            'post_status'   => 'publish'
+			            'post_status'   => $bupr_reviews_status
 			        );
+
+					// echo '<pre>'; print_r( $add_review_args ); die("lkoo");
 			        
 			        $review_id = wp_insert_post( $add_review_args );
 			        if($review_id){

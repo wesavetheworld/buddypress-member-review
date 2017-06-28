@@ -26,7 +26,7 @@ if( !class_exists( 'BUPRScriptsStyles' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'bupr_custom_variables' ) );
 			add_action( 'wp_enqueue_scripts', array( $this,'wpdocs_styles_method') );
 			
-			if( strpos( $curr_url, 'review-settings' ) !== false ) {
+			if( strpos( $curr_url, 'review' ) !== false ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'bupr_admin_custom_variables' ) );
 			}
 		}
