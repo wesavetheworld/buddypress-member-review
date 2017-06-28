@@ -227,3 +227,6 @@ color:white;
   font-size: 14px;
   margin-left:10px;
 }
+.bupr-show-if-allowed{
+  display: none;
+}

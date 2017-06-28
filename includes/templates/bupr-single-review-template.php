@@ -55,9 +55,9 @@ defined( 'ABSPATH' ) || exit;
 				</div>
 			</div>
 			<div class="bupr-col-8"> 
-				<h2 class="alpha entry-title">
-					<?php _e($review_title , BUPR_TEXT_DOMAIN ); ?>
-				</h2>
+				<!-- <h2 class="alpha entry-title">
+					<?php //_e($review_title , BUPR_TEXT_DOMAIN ); ?>
+				</h2> -->
 				<span class="posted-on">
 					<?php _e('Posted on' , BUPR_TEXT_DOMAIN); ?> 
 						<time class="entry-date published updated">

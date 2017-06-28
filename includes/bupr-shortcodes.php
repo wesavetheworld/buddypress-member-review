@@ -61,25 +61,13 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
             $bupr_review_succes = false;
             $bupr_flag = false;
             $bupr_member = array();
-            if ( 0 === bp_displayed_user_id() ){ 
-				$bupr_users         =  get_users();
-				$bupr_member[0] = array(
-					'member_id' => '',
-					'member_name' => '----- Select Member -----'
-				);
-				foreach($bupr_users as $user){
-					$bupr_member[] = array(
-						'member_id' => $user->data->ID,
-						'member_name' => $user->data->user_nicename
+            foreach( get_users() as $user ) {
+            	if( $user->ID !== get_current_user_id() ) {
+            		$bupr_member[] = array(
+						'member_id' => $user->ID,
+						'member_name' => $user->data->display_name
 					);
-				}
-			}else if(!empty(bp_displayed_user_id()) && 0 != bp_displayed_user_id()){
-				$bupr_memberID 		= bp_displayed_user_id();
-				$bupr_username 	 	=  bp_core_get_user_displayname( $bupr_memberID );
-				$bupr_member[]		= array(
-					'member_id' => $bupr_memberID,
-					'member_name' => $bupr_username
-				);
+            	}
 			} 
             ?>
 			<form action="" method="POST">
@@ -91,24 +79,23 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 					<?php _e( "Fill In Details To Submit $bupr_review_title", BUPR_TEXT_DOMAIN );?>
 				</p>
 
+				<?php if ( 0 === bp_displayed_user_id() ) {?>
 				<p>
-					<select name="bupr_member_id" id="bupr_member_review_id" ><?php
-						if(!empty($bupr_member)){
-							foreach($bupr_member as $user){
-								$id = $user['member_id']; 
-								$bupr_name = $user['member_name'];
-								if($id != get_current_user_id()){
-									echo '<option value="'. $id .'">'. $bupr_name .'</option>' ;
-								}
-						 		
+					<select name="bupr_member_id" id="bupr_member_review_id">
+						<option value=""><?php _e( '--Select--', BUPR_TEXT_DOMAIN );?></option>
+						<?php
+						if( !empty( $bupr_member ) ) {
+							foreach( $bupr_member as $user ) {
+								echo '<option value="'.$user['member_id'].'">'.$user['member_name'].'</option>';
 						 	}
 						}
 						?>
 					</select>
 					<span class="bupr-fields">*</span>
 				</p>
+				<?php }?>
 
-				<p>
+				<p class="bupr-hide-subject">
 					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" ><span class="bupr-fields">*</span>
 				</p>
 				<p>

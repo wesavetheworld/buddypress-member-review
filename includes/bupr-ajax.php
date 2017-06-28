@@ -81,22 +81,26 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		*/
 		public function bupr_admin_tab_criteria(){
 			if( isset( $_POST['action'] ) && $_POST['action'] === 'bupr_admin_tab_criteria' ) {
-
-				$bupr_review_criteria = array_map('sanitize_text_field', wp_unslash($_POST['bupr_review_criteria']));
-				//print_r($bupr_review_criteria);
-				$bupr_criteria_encode = array();
-				if(!empty($bupr_review_criteria)){
-					foreach($bupr_review_criteria as $buprcriteria){
-						$bupr_criteria_encode[] = htmlspecialchars($buprcriteria);
+				$bupr_multiple_criteria_allowed = sanitize_text_field( $_POST['bupr_multiple_criteria_allowed'] );
+				$bupr_review_criterias = array();
+				
+				if( $bupr_multiple_criteria_allowed == 1 ) {
+					$bupr_review_criteria = array_map('sanitize_text_field', wp_unslash($_POST['bupr_review_criteria']));
+					$bupr_criteria_encode = array();
+					if(!empty($bupr_review_criteria)){
+						foreach($bupr_review_criteria as $buprcriteria){
+							$bupr_criteria_encode[] = htmlspecialchars($buprcriteria);
+						}
+					}
+					$bupr_criteria_setting = array_map('sanitize_text_field', wp_unslash($_POST['bupr_criteria_setting']));
+					if(!empty($bupr_criteria_encode) && !empty($bupr_criteria_setting)){
+						$bupr_review_criterias = array_combine($bupr_criteria_encode, $bupr_criteria_setting);
 					}
 				}
-				$bupr_criteria_setting = array_map('sanitize_text_field', wp_unslash($_POST['bupr_criteria_setting']));
-				if(!empty($bupr_criteria_encode) && !empty($bupr_criteria_setting)){
-					$bupr_review_criterias = array_combine($bupr_criteria_encode, $bupr_criteria_setting);
-				}
 				
-				$bupr_admin_settings 	= array(
-				    'profile_rating_fields'   => $bupr_review_criterias 
+				$bupr_admin_settings = array(
+					'profile_multi_rating_allowed' => $bupr_multiple_criteria_allowed,
+					'profile_rating_fields' => $bupr_review_criterias
 				);
 				update_option( 'bupr_admin_settings', $bupr_admin_settings );
 				echo 'admin-settings-saved';

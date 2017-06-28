@@ -30,7 +30,21 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 			add_filter( 'post_row_actions', array( $this, 'bupr_bp_member_reviews_row_actions' ), 10, 2 );
 			add_action( 'admin_footer-edit.php', array( $this, 'bupr_disable_review_title_edit_link' ) );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bupr_remove_edit_bulk_actions' ), 10, 1 );
-			
+			add_action( 'bp_member_header_actions', array( $this, 'bupr_add_review_button_on_member_header' ) );
+		}
+
+		/**
+		 * Actions performed to add a review button on member header
+		 */
+		function bupr_add_review_button_on_member_header() {
+			if( bp_displayed_user_id() != bp_loggedin_user_id() ) {
+				$review_url = bp_core_get_userlink( bp_displayed_user_id(), false, true ).'reviews';
+				?>
+				<div id="bupr-add-review-btn" class="generic-button">
+				<a href="<?php echo $review_url;?>" class="add-review"><?php _e( 'Add Review', BUPR_TEXT_DOMAIN );?></a>
+				</div>
+				<?php
+			}
 		}
 
 		/**

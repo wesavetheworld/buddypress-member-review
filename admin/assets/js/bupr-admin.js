@@ -108,30 +108,54 @@ jQuery(document).ready(function(){
 	});
 
 	/*-------------------------------------------------------
+    * Show criteria only when allowed
+    *--------------------------------------------------------*/
+    jQuery(document).on('change', '#bupr_allow_multiple_criteria', function(){
+		if( jQuery(this).is( ':checked' ) ) {
+			jQuery('.bupr-criteria-settings-tbl #buprTextBoxContainer').removeClass('bupr-show-if-allowed');
+			jQuery('.bupr-criteria-settings-tbl #bupr-add-criteria-action').removeClass('bupr-show-if-allowed');
+		} else {
+			jQuery('.bupr-criteria-settings-tbl #buprTextBoxContainer').addClass('bupr-show-if-allowed');
+			jQuery('.bupr-criteria-settings-tbl #bupr-add-criteria-action').addClass('bupr-show-if-allowed');
+		}
+    });
+
+	/*-------------------------------------------------------
     * Admin Setting - Update Criteria tab setting
     *--------------------------------------------------------*/
     jQuery(document).on('click', '#bupr-save-criteria-settings', function(){
-		jQuery(this).addClass('bupr-btn-ajax');
-		jQuery('.bupr-admin-settings-spinner').show();
-		/* wbcom get all options value */
-        var bupr_review_criteria = [];
-        jQuery("input[name=buprDynamicTextBox]").each(function () {
-        	var criteria = jQuery(this).closest('.bupr-admin-col-6').children('input[name=buprDynamicTextBox]').val();
-            if(criteria != '') {    
-                bupr_review_criteria.push(htmlEncode(criteria));
-            }
-        });
-        var bupr_criteria_setting = [];
-        jQuery(".bupr_enable_criteria").each(function () {
-        	var setting = jQuery(this).val();
-            bupr_criteria_setting.push(setting);
-        });
+    	jQuery(this).addClass('bupr-btn-ajax');
+    	jQuery('.bupr-admin-settings-spinner').show();
+
+    	var bupr_review_criteria = [];
+    	var bupr_criteria_setting = [];
+    	var bupr_multiple_criteria_allowed = 0;
+
+    	//Check if multiple criteria is allowed
+    	if( jQuery('#bupr_allow_multiple_criteria').is( ':checked' ) ) {
+    		bupr_multiple_criteria_allowed = 1;
+    		/* wbcom get all options value */
+	        
+	        jQuery("input[name=buprDynamicTextBox]").each(function () {
+	        	var criteria = jQuery(this).closest('.bupr-admin-col-6').children('input[name=buprDynamicTextBox]').val();
+	            if(criteria != '') {    
+	                bupr_review_criteria.push(htmlEncode(criteria));
+	            }
+	        });
+	        
+	        jQuery(".bupr_enable_criteria").each(function () {
+	        	var setting = jQuery(this).val();
+	            bupr_criteria_setting.push(setting);
+	        });
+    	}
+
 		jQuery.post(
 			bupr_admin_ajax_object.ajaxurl,
 			{
-				'action' 					: 'bupr_admin_tab_criteria',
-				'bupr_review_criteria' 		: bupr_review_criteria,
-				'bupr_criteria_setting' 	: bupr_criteria_setting
+				'action' 							: 'bupr_admin_tab_criteria',
+				'bupr_review_criteria' 				: bupr_review_criteria,
+				'bupr_criteria_setting' 			: bupr_criteria_setting,
+				'bupr_multiple_criteria_allowed'	: bupr_multiple_criteria_allowed
 			},
 			function ( response ) {
 				if( response === 'admin-settings-saved' ) {

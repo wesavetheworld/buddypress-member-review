@@ -200,4 +200,6 @@
 .modal-header h2{
   margin:0px!important;
 }
-
+.bupr-hide-subject{
+  display: none;
+}
