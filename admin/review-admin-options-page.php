@@ -1,15 +1,12 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if(isset($_GET)){
-    if(!empty($_GET['tab'])){
-        $bupr_setting_tab = $_GET['tab'];
-    }else{
-        $bupr_setting_tab = 'general';
-    } 
-    bupr_include_admin_setting_tabs($bupr_setting_tab);
-}
-
+if(isset($_GET['tab'])){
+    $bupr_setting_tab = sanitize_text_field( $_GET['tab'] );
+}else{
+    $bupr_setting_tab = 'general';
+} 
+bupr_include_admin_setting_tabs($bupr_setting_tab);
 /**
 * Include review setting template.
 *
@@ -17,7 +14,6 @@ if(isset($_GET)){
 * @author   Wbcom Designs
 */
 function bupr_include_admin_setting_tabs($bupr_setting_tab = 'general'){
-    
     switch($bupr_setting_tab){
         case 'general':
             include 'tab-templates/bupr-setting-general-tab.php';
