@@ -7,15 +7,6 @@ jQuery(document).ready(function(){
     jQuery( "#buprTextBoxContainer" ).sortable();
     jQuery( "#buprTextBoxContainer" ).disableSelection();
 
-    /*----------------------------------------
-    * Call to select js2 function
-    *-----------------------------------------*/ 
-	jQuery(".bupr_excluding_member").select2();
-
-	jQuery('#bupr_excluding_box').select2({
-	    placeholder: "Select Member for excluding reviews"
-	});
-
 	/*----------------------------------------
     * Support tab accordian js
     *-----------------------------------------*/

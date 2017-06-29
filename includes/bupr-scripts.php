@@ -120,9 +120,7 @@ if( !class_exists( 'BUPRScriptsStyles' ) ) {
 				)
 			);
 			
-			wp_enqueue_script('bupr-select2-js',BUPR_PLUGIN_URL.'admin/assets/js/select2.js', array('jquery'));
 			wp_enqueue_style('bupr-css-admin', BUPR_PLUGIN_URL.'admin/assets/css/bupr-admin.css');
-			wp_enqueue_style('bupr-select2-css', BUPR_PLUGIN_URL.'admin/assets/css/select2.css');
 			/* add wp color picker */
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'bupr-color-picker', BUPR_PLUGIN_URL.'admin/assets/js/bupr-color-picker.js', array( 'wp-color-picker' ), false, true );
