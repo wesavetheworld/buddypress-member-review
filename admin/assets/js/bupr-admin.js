@@ -52,7 +52,7 @@ jQuery(document).ready(function(){
     	var bupr_exc_member = jQuery("#bupr_excluding_box").val();
 
     	/* Review popup value */
-    	bupr_allow_popup = '';
+    	var bupr_allow_popup = '';
 		if( jQuery( '#bupr-allow-popup' ).is( ':checked' ) ) {
 			bupr_allow_popup = 'yes';
 		} else {
@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
 		}
 
 		/* Email notification options value */
-		bupr_allow_email = '';
+		var bupr_allow_email = '';
 		if( jQuery( '#bupr_review_email' ).is( ':checked' ) ) {
 			bupr_allow_email = 'yes';
 		} else {
@@ -68,7 +68,7 @@ jQuery(document).ready(function(){
 		}
 
 		/* Reviews auto approval */
-		bupr_auto_approve_reviews = '';
+		var bupr_auto_approve_reviews = '';
 		if( jQuery( '#bupr_review_auto_approval' ).is( ':checked' ) ) {
 			bupr_auto_approve_reviews = 'yes';
 		} else {
@@ -76,7 +76,7 @@ jQuery(document).ready(function(){
 		}
 
 		/* Review notification value */
-		bupr_allow_notification = '';
+		var bupr_allow_notification = '';
 		if( jQuery( '#bupr_review_notification' ).is( ':checked' ) ) {
 			bupr_allow_notification = 'yes';
 		} else {

@@ -42,7 +42,7 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 		}
 
 		/**
-		 *
+		 * Actions performed to approve review at admin end
 		 */
 		public function bupr_approve_review() {
 			if( isset( $_POST['action'] ) && $_POST['action'] == 'bupr_approve_review' ) {

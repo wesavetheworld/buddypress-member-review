@@ -111,7 +111,15 @@ if( !class_exists( 'BUPRScriptsStyles' ) ) {
 			wp_enqueue_script('jquery');
 			wp_enqueue_script('jquery-ui-sortable');
 			wp_enqueue_script('bupr-js-admin',BUPR_PLUGIN_URL.'admin/assets/js/bupr-admin.js', array('jquery'));
-			wp_localize_script('bupr-js-admin', 'bupr_admin_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+			
+			wp_localize_script(
+				'bupr-js-admin',
+				'bupr_admin_ajax_object',
+				array(
+					'ajaxurl' => admin_url('admin-ajax.php')
+				)
+			);
+			
 			wp_enqueue_script('bupr-select2-js',BUPR_PLUGIN_URL.'admin/assets/js/select2.js', array('jquery'));
 			wp_enqueue_style('bupr-css-admin', BUPR_PLUGIN_URL.'admin/assets/css/bupr-admin.css');
 			wp_enqueue_style('bupr-select2-css', BUPR_PLUGIN_URL.'admin/assets/css/select2.css');
