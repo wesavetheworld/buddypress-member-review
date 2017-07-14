@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, members
 Requires at least: 3.0.1
-Tested up to: 4.7
-Stable tag: 4.6
+Tested up to: 4.8
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,14 @@ Yes you can use the review form on other page, just go to "Dashboard->Review->BP
 == Changelog ==
 = 1.0.0 =
 * Initial release.
+
+= 1.0.1 =
+* Layout Improvement
+* Added Auto approve reviews options
+* Added Email Notification options
+* Added BuddyPress Notifcation options
+* Added Exclude Members for review options
+* Removed option to rate yourself
 
 == Upgrade Notice ==
 = 1.0.0 =
