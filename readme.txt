@@ -1,5 +1,5 @@
 === Buddypress Member Review ===
-Contributors: wbcomdesigns, vapvarun
+Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, members
 Requires at least: 3.0.1
