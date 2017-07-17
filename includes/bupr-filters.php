@@ -246,10 +246,8 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 					//Add a link to view the review
 					$review_title = $post->post_title;
 					$linked_bp_member = get_post_meta( $post->ID, 'linked_bp_member', true );
-					$bp_member = get_userdata( $linked_bp_member );
-					$bp_member_username = $bp_member->data->user_login;
-					$review_url = home_url().'/members/'.$bp_member_username.'/reviews/view/'.$post->ID;
 					
+					$review_url = bp_core_get_userlink( $linked_bp_member, false, true ).'reviews/view/'.$post->ID;
 					$actions['view_review'] = '<a href="'.$review_url.'" title="'.$review_title.'">View Review</a>';
 
 					//Add Approve Link for draft reviews
