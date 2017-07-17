@@ -26,6 +26,8 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 			/* wbcom add new tab manage */
 			//add_action( 'bp_setup_nav', array($this, 'bupr_member_profile_manage_tab' ) );
 
+			add_action( 'bp_setup_admin_bar', array( $this, 'bupr_setup_admin_bar' ), 80 );
+
 			add_action( 'init', array( $this, 'bupr_add_bp_member_reviews_taxonomy_term' ) );
 			add_filter( 'post_row_actions', array( $this, 'bupr_bp_member_reviews_row_actions' ), 10, 2 );
 			add_action( 'admin_footer-edit.php', array( $this, 'bupr_disable_review_title_edit_link' ) );
@@ -44,6 +46,48 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 				<a href="<?php echo $review_url;?>" class="add-review"><?php _e( 'Add Review', BUPR_TEXT_DOMAIN );?></a>
 				</div>
 				<?php
+			}
+		}
+
+		/**
+		 * Setup Reviews link in admin bar
+		 */
+		public function bupr_setup_admin_bar( $wp_admin_nav = array() ) {
+			global $wp_admin_bar;
+
+			$bupr_review_title 	= 'Reviews';
+	   		$bupr_display_settings  = get_option( BUPR_DISPLAY_OPTIONS , true );
+		    if( !empty( $bupr_display_settings ) && !empty($bupr_display_settings['bupr_review_title'])) {
+		        $bupr_review_title  = $bupr_display_settings['bupr_review_title'];
+		    }
+
+		    $bupr_args = array(
+				'post_type' 		=> 'review',
+				'posts_per_page' 	=> -1,
+				'post_status' 		=> 'publish',
+				'category' 			=> 'bp-member',
+				'meta_query' 		=> array(
+						array(
+							'key'		=>	'linked_bp_member',
+							'value'		=>	get_current_user_id(),
+							'compare'	=>	'=',
+						),
+				),
+			);
+
+			$reviews = get_posts( $bupr_args );
+			$reviews_count = count( $reviews );
+
+			$profile_menu_slug = 'reviews';
+
+			$base_url = bp_loggedin_user_domain().$profile_menu_slug;
+			if ( is_user_logged_in() ) {
+				$wp_admin_bar->add_menu( array(
+					'parent' => 'my-account-buddypress',
+					'id' => 'my-account-'.$profile_menu_slug,
+					'title' => __( $bupr_review_title.' <span class="count">'.$reviews_count.'</span>', BPTODO_TEXT_DOMAIN ),
+					'href' => trailingslashit( $base_url )
+				) );
 			}
 		}
 
