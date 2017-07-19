@@ -93,7 +93,7 @@ if (!class_exists('BUPR_Notifications')) {
     }
 }
 
-add_filter( 'bp_notifications_get_notifications_for_user', 'bupr_format_notifications', 10, 1 );
+add_filter( 'bp_notifications_get_notifications_for_user', 'bupr_format_notifications', 10, 5 );
 function bupr_format_notifications($action,$item_id, $secondary_item_id, $user_id, $format = 'string') {
     if( bp_is_active( 'notifications' ) ) { 
         switch ($action) {
