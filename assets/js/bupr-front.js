@@ -97,8 +97,6 @@ jQuery(document).ready(function(){
         var bupr_review_count    = jQuery('#member_rating_field_counter').val(); 
         var bupr_review_rating   = {};
 
-        
-
         jQuery('.bupr-star-member-rating').each( function(index) {
             bupr_review_rating[index] = jQuery(this).val();
         });

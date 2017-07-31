@@ -94,7 +94,7 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 					<span class="bupr-fields">*</span>
 				</p>
 				<?php }?>
-
+				<input type="hidden" id="bupr_member_review_id" value="<?php echo bp_displayed_user_id();?>">
 				<p class="bupr-hide-subject">
 					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" ><span class="bupr-fields">*</span>
 				</p>
