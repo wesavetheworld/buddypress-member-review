@@ -39,13 +39,18 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 		 * Actions performed to add a review button on member header
 		 */
 		function bupr_add_review_button_on_member_header() {
-			if( bp_displayed_user_id() != bp_loggedin_user_id() ) {
-				$review_url = bp_core_get_userlink( bp_displayed_user_id(), false, true ).'reviews';
-				?>
-				<div id="bupr-add-review-btn" class="generic-button">
-				<a href="<?php echo $review_url;?>" class="add-review"><?php _e( 'Add Review', BUPR_TEXT_DOMAIN );?></a>
-				</div>
-				<?php
+			$bupr_admin_settings = get_option( BUPR_GENERAL_OPTIONS , true );
+			$bupr_exc_member = $bupr_admin_settings['bupr_exc_member'];
+
+			if( !empty( $bupr_exc_member ) && !in_array( bp_displayed_user_id(), $bupr_exc_member ) ) {
+				if( bp_displayed_user_id() != bp_loggedin_user_id() ) {
+					$review_url = bp_core_get_userlink( bp_displayed_user_id(), false, true ).'reviews';
+					?>
+					<div id="bupr-add-review-btn" class="generic-button">
+					<a href="<?php echo $review_url;?>" class="add-review"><?php _e( 'Add Review', BUPR_TEXT_DOMAIN );?></a>
+					</div>
+					<?php
+				}
 			}
 		}
 

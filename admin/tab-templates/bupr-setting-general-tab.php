@@ -30,21 +30,13 @@ if( !empty( $bupr_admin_settings ) && !empty($bupr_admin_settings['bupr_exc_memb
 }
 
 /* get all user for exclude for review */
-$bupr_members       = get_users();
 $bupr_member_data   = array();
-if(!empty($bupr_members)){
-    foreach($bupr_members as $bupr_member){
-        $bupr_key       = $bupr_member->data->ID;
-        $bupr_member_data[$bupr_key] = $bupr_member->data->display_name;
-    } 
-}
+foreach( get_users() as $user ){
+    $bupr_key       = $user->data->ID;
+    $bupr_member_data[$bupr_key] = $user->data->display_name;
+} 
 
-if(!empty($bupr_exc_member)){
-   ksort($bupr_exc_member); 
-}
-if(!empty($bupr_exc_member)){
-   ksort($bupr_member_data); 
-}
+// echo '<pre>'; print_r( $bupr_exc_member ); die;
 ?>
 
 <div class="bupr-adming-setting">
@@ -150,15 +142,12 @@ if(!empty($bupr_exc_member)){
                      </label>
                 </div> 
                 <div class="bupr-admin-col-6 ">   
-                    <select name="bupr_excluding_box[]" id="bupr_excluding_box" multiple class="bupr_excluding_member" >
-                        <option ></option>
+                    <select name="bupr_excluding_box[]" id="bupr_excluding_box" multiple class="bupr_excluding_member">
                     <?php
                     $counter = 0;
                     foreach($bupr_member_data as $bupr_memberID => $bupr_memberName){
-                        if(!empty($bupr_exc_member) && array_key_exists($bupr_memberID ,$bupr_exc_member)){
-                            _e( "<option value='".$bupr_memberID."' selected>$bupr_memberName</option>", BUPR_TEXT_DOMAIN); 
-                        }else{
-                            _e( "<option value='".$bupr_memberID."'>$bupr_memberName</option>", BUPR_TEXT_DOMAIN); 
+                        if( get_current_user_id() != $bupr_memberID ) {
+                            ?><option value="<?php echo $bupr_memberID;?>" <?php if( in_array( $bupr_memberID, $bupr_exc_member ) ) echo 'selected="selected"';?>><?php echo $bupr_memberName;?></option><?php
                         }
                     }
                     ?>
