@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Member Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
- * Description: This plugin  allows only site members to add reviews to the buddypress members on the site. But the member can not review itself. And if the visitor is not logged in, he can only see the listing of the reviews but can not review.  The review form allows the members to even rate the member's profile out of 5 points with multiple review criteria..
+ * Description: This plugin  allows only site members to add reviews to the buddypress members on the site. But the member can not review himself/herself. And if the visitor is not logged in, he can only see the listing of the reviews but can not review.  The review form allows the members to even rate the member's profile out of 5 points with multiple review criteria..
  * Version: 1.0.1
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
@@ -60,6 +60,7 @@
 			if (!in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 				add_action( 'admin_notices', 'bupr_admin_notice' );
 			}else{
+				add_filter('plugin_action_links_' . plugin_basename(__FILE__) , 'bupr_admin_page_link');
 				/**
 				* Include needed files on init 
 				*/
@@ -105,23 +106,16 @@
 	
 	
 
-	if ( !function_exists( 'bupr_admin_page_link' ) ) {
-
-		add_filter('plugin_action_links_' . plugin_basename(__FILE__) , 'bupr_admin_page_link');
-
-		/**
-		* Settings link for this plugin.
-		*
-		* @author 	Wbcom Designs
-		* @since    1.0.0
-		*/
-		function bupr_admin_page_link($links)
-		{
-			$page_link = array(
-				'<a href="' . admin_url('admin.php?page=bp-member-review-settings') . '">Settings</a>'
-			);
-			return array_merge($links, $page_link);
-		}
+	/**
+	* Settings link for this plugin.
+	*
+	* @author 	Wbcom Designs
+	* @since    1.0.0
+	*/
+	function bupr_admin_page_link($links)
+	{
+		$page_link = array(
+			'<a href="' . admin_url('admin.php?page=bp-member-review-settings') . '">Settings</a>'
+		);
+		return array_merge($links, $page_link);
 	}
-
-				
