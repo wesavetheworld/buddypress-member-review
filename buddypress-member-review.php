@@ -45,28 +45,6 @@
 	define('BUPR_SHORTCODE_OPTIONS', 'bupr_admin_shortcode_options');
 	define('BUPR_DISPLAY_OPTIONS', 'bupr_admin_display_options');
 
-
-	if ( !function_exists( 'bupr_plugin_activation' ) ) {
-
-		register_activation_hook(__FILE__, 'bupr_plugin_activation');
-
-		/**
-		* Plugin Activation hooks
-		*
-		* @author 	Wbcom Designs
-		* @since    1.0.0
-		*/
-		function bupr_plugin_activation()
-		{
-			/* Check if "Buddypress" plugin is active or not */
-			if (!in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-
-				// Buddypress Plugin is inactive, hence deactivate this plugin
-				deactivate_plugins(plugin_basename(__FILE__));
-			}
-		}
-	}
-
 	
 	if ( !function_exists( 'bupr_plugins_files' ) ) {
 
@@ -109,11 +87,11 @@
 		* @since    1.0.0
 		*/
 		function bupr_admin_notice() {
-		    ?>
-		    <div class="error notice is-dismissible">
-		        <p><?php _e( 'The <b>BuddyPress Member Reviews</b> plugin requires <b>Buddypress</b> plugin to be installed and active', BUPR_TEXT_DOMAIN ); ?></p>
-		    </div>
-		    <?php
+		    $bupr_plugin = 'BuddyPress Member Reviews';
+			$bp_plugin = 'BuddyPress';
+
+			echo '<div class="error"><p>' . sprintf(__('%1$s is ineffective now as it requires %2$s to function correctly.', BUPR_TEXT_DOMAIN), '<strong>' . esc_html($bupr_plugin) . '</strong>', '<strong>' . esc_html($bp_plugin) . '</strong>') . '</p></div>';
+			if (isset($_GET['activate'])) unset($_GET['activate']);
 		}
 	}
 	
