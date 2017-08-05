@@ -161,20 +161,19 @@ class bupr_members_review_setting extends WP_Widget {
 
 					$bupr_avg_rating      = $buprValue['avg_rating'];
 					$bupr_reviews_count   = $buprValue['max_review'];
-					$stars_on = $stars_off = $stars_half = '';
-					
-					if( $buprValue['avr_type']  == 'integer' ){
+					$stars_on = $stars_off = $stars_half = '';				
+					$remaining = $bupr_avg_rating - (int) $bupr_avg_rating;
+					if( $remaining > 0 ) {
+							$stars_on = intval( $bupr_avg_rating );					
+							$stars_half = 1;
+							$bupr_half_squar = 1;						
+							$stars_off = 5 - ( $stars_on + $stars_half );
+					} else {
 							$stars_on = $bupr_avg_rating;
 							$stars_off = 5 - $bupr_avg_rating;
 							$stars_half = 0;
-						}
-					$bupr_half_squar = '';
-					if( $buprValue['avr_type'] == 'double' ){
-						$stars_on   = intval( $bupr_avg_rating );
-						$stars_half = 1;
-						$stars_off  = 5 - ( $stars_on + $stars_half );
-						$bupr_half_squar = 1;
 					}
+					
 					if(!empty($bupr_star_type) && $bupr_star_type == 'Stars Rating'){
 						for( $i = 1; $i <= $stars_on; $i++ ){
 							?><img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star.png";?>" alt="star"><?php
@@ -190,29 +189,37 @@ class bupr_members_review_setting extends WP_Widget {
 					}else if(!empty($bupr_star_type) && $bupr_star_type == 'Numbers Rating'){
 						echo '<select class="display-square-rating-value" name="rating" autocomplete="off">';
 						echo '<option value=""></option>';
-						for($i = 1; $i <= 5 ; $i++){
-							if($i <= $stars_on ){
-								echo '<option rate="selected" value="'.$i.'">'.$i.'</option>';
-							}else if(!empty($bupr_half_squar) && $i == $stars_on){
-								echo '<option rate="selected" value="half">'.$i.'</option>';
-							}else{
-								echo '<option rate="unselected" value="0">'.$i.'</option>';
+						$rate_display_count = 1;
+							for( $i = 1; $i <= $stars_on; $i++ ) {
+								echo '<option rate="selected" value="'.$i.'">'.$rate_display_count.'</option>';
+								$rate_display_count++;
 							}
-						}
+
+							for( $i = 1; $i <= $stars_half; $i++ ) {
+								echo '<option rate="selected" value="half">'.$rate_display_count.'</option>';
+								$rate_display_count++;
+							}
+
+							for( $i = 1; $i <= $stars_off; $i++ ) {
+								echo '<option rate="unselected" value="0">'.$rate_display_count.'</option>';
+								$rate_display_count++;
+							}				
 						echo '</select>';
 					}else if(!empty($bupr_star_type) && $bupr_star_type == 'Bar Rating'){
 
 						echo '<select class="bupr-display-pill-header bupr-display-pill-header-class"  name="rating" autocomplete="off">';
 						echo '<option value=""></option>';
-						for($i = 1; $i <= 5 ; $i++){
-					        if($i <= $stars_on){
-					            echo '<option rate="selected" value="'.$i.'"></option>';
-					        }else if(!empty($bupr_half_squar) && $i == $stars_on ){
-					        	echo '<option rate="selected" value="half"></option>';
-					        }else{
-					            echo '<option rate="unselected" value="0"></option>';
-					        }
-					    }
+						for( $i = 1; $i <= $stars_on; $i++ ) {
+								echo '<option rate="selected" value="'.$i.'">'.$i.'</option>';
+							}
+
+							for( $i = 1; $i <= $stars_half; $i++ ) {
+								echo '<option rate="selected" value="half">'.$i.'</option>';
+							}
+
+							for( $i = 1; $i <= $stars_off; $i++ ) {
+								echo '<option rate="unselected" value="0">'.$i.'</option>';
+							}
 						echo '</select>';
 						
 					}else{
@@ -230,6 +237,7 @@ class bupr_members_review_setting extends WP_Widget {
 					}
 					
 					$bupr_avg_rating = round( $bupr_avg_rating, 2 );
+					
 					_e('<p> Rating: ( '. $bupr_avg_rating . ' ) </p>',BUPR_TEXT_DOMAIN);
 					_e("<p> Total $bupr_review_title: ". $bupr_reviews_count . '</p>',BUPR_TEXT_DOMAIN);
 					echo '</div></div>';

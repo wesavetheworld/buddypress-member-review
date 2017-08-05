@@ -175,19 +175,17 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 				}
 				
 				$bupr_stars_on 	 = $stars_off = $stars_half = '';
-				$bupr_half_squar = '';
-				if( $bupr_type == 'integer'){
-					$bupr_stars_on 	= $bupr_avg_rating;
-					$stars_off 		= 5 - $bupr_avg_rating;
-					$stars_half 	= 0; 
-				}
-
-				if( $bupr_type == 'double' ){
-
-					$bupr_stars_on 	= intval( $bupr_avg_rating );
-					$stars_half 	= 1;
-					$stars_off 		= 5 - ( $bupr_stars_on + $stars_half );
-					$bupr_half_squar = 1;
+				$bupr_half_squar = '';				
+				$remaining = $bupr_avg_rating - (int) $bupr_avg_rating;
+				if( $remaining > 0 ) {
+						$stars_on = intval( $bupr_avg_rating );					
+						$stars_half = 1;
+						$bupr_half_squar = 1;						
+						$stars_off = 5 - ( $stars_on + $stars_half );
+				} else {
+						$stars_on = $bupr_avg_rating;
+						$stars_off = 5 - $bupr_avg_rating;
+						$stars_half = 0;
 				}
 				if(!empty($bupr_star_type) && $bupr_star_type == 'Stars Rating'){
 					for( $i = 1; $i <= $bupr_stars_on; $i++ ){ ?>
@@ -204,15 +202,22 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 				}else if(!empty($bupr_star_type) && $bupr_star_type == 'Numbers Rating'){
 				    echo '<select class="display-square-rating-value" name="rating" autocomplete="off">';
 				    echo '<option value=""></option>';
-				    for($i = 1; $i <= 5 ; $i++){
-				        if($i <= $bupr_stars_on){
-				            echo '<option rate="selected" value="'.$i.'">'.$i.'</option>';
-				        }else if(!empty($bupr_half_squar) && $i == $bupr_stars_on){
-				        	echo '<option rate="selected" value="half">'.$i.'</option>';
-				        }else{
-				            echo '<option rate="unselected" value="0">'.$i.'</option>';
-				        }
-				    }
+				    
+				    $rate_display_count = 1;
+					for( $i = 1; $i <= $stars_on; $i++ ) {
+						echo '<option rate="selected" value="'.$i.'">'.$rate_display_count.'</option>';
+						$rate_display_count++;
+					}
+
+					for( $i = 1; $i <= $stars_half; $i++ ) {
+						echo '<option rate="selected" value="half">'.$rate_display_count.'</option>';
+						$rate_display_count++;
+					}
+
+					for( $i = 1; $i <= $stars_off; $i++ ) {
+						echo '<option rate="unselected" value="0">'.$rate_display_count.'</option>';
+						$rate_display_count++;
+					}
 				    echo '</select>';
 				}else if(!empty($bupr_star_type) && $bupr_star_type == 'Bar Rating'){ 
 					//echo $bupr_stars_on;
