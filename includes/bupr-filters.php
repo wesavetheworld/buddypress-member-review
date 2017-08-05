@@ -223,15 +223,21 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 					//echo $bupr_stars_on;
 					echo '<select class="bupr-display-pill-header bupr-display-pill-header-class"  name="rating" autocomplete="off">';
 					echo '<option value=""></option>';
-					for($i = 1; $i <= 5 ; $i++){
-				        if($i <= $bupr_stars_on){
-				            echo '<option rate="selected" value="'.$i.'"></option>';
-				        }else if(!empty($bupr_half_squar) && $i == $bupr_stars_on ){
-				        	echo '<option rate="selected" value="half"></option>';
-				        }else{
-				            echo '<option rate="unselected" value="0"></option>';
-				        }
-				    }
+				    $rate_display_count = 1;
+					for( $i = 1; $i <= $stars_on; $i++ ) {
+						echo '<option rate="selected" value="'.$i.'">'.$rate_display_count.'</option>';
+						$rate_display_count++;
+					}
+
+					for( $i = 1; $i <= $stars_half; $i++ ) {
+						echo '<option rate="selected" value="half">'.$rate_display_count.'</option>';
+						$rate_display_count++;
+					}
+
+					for( $i = 1; $i <= $stars_off; $i++ ) {
+						echo '<option rate="unselected" value="0">'.$rate_display_count.'</option>';
+						$rate_display_count++;
+					}
 					echo '</select>';
 				}else{
 					for( $i = 1; $i <= $bupr_stars_on; $i++ ){ ?>
