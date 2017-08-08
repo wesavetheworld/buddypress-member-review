@@ -6,7 +6,8 @@ $bupr_spinner_src = includes_url().'/images/spinner.gif';
 
 /* admin setting on dashboard */
 $bupr_admin_settings = get_option( BUPR_GENERAL_OPTIONS , true );
-$bupr_allow_popup = $bupr_auto_approve_reviews = $bupr_allow_email = $bupr_exc_member = $bupr_allow_notification ='' ;
+$bupr_allow_popup = $bupr_auto_approve_reviews = $bupr_allow_email = $bupr_allow_notification ='' ;
+$bupr_exc_member = array();
 $profile_reviews_per_page = 3;
 if( !empty( $bupr_admin_settings ) && !empty($bupr_admin_settings['add_review_allow_popup'])) {
     $bupr_allow_popup    = $bupr_admin_settings['add_review_allow_popup'];
@@ -35,8 +36,6 @@ foreach( get_users() as $user ){
     $bupr_key       = $user->data->ID;
     $bupr_member_data[$bupr_key] = $user->data->display_name;
 } 
-
-// echo '<pre>'; print_r( $bupr_exc_member ); die;
 ?>
 
 <div class="bupr-adming-setting">
@@ -51,12 +50,12 @@ foreach( get_users() as $user ){
         <div id="bupr_settings_updated" class="updated settings-error notice is-dismissible">
             <p>
                 <strong>
-                    <?php _e( 'BP Member Reviews Settings Saved.', BUPR_TEXT_DOMAIN );?>
+                    <?php _e( 'BP Member Reviews Settings Saved.', BUPR_TEXT_DOMAIN ); ?>
                 </strong>
             </p>
             <button type="button" class="notice-dismiss">
                 <span class="screen-reader-text">
-                    <?php _e( 'BP Member Reviews Settings Saved.', BUPR_TEXT_DOMAIN );?>
+                    <?php _e( 'BP Member Reviews Settings Saved.', BUPR_TEXT_DOMAIN ); ?>
                 </span>
             </button>
         </div>
