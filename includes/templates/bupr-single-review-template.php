@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
     }
 	$url 			= $_SERVER['REQUEST_URI'];
 	preg_match_all('!\d+!', $url, $matches);
-	$review_id 		= $matches[0][0];
+    $review_id      = basename($url); 
 	$review 		= get_post( $review_id );
 
 	$review_title 	= $review->post_title;
@@ -75,6 +75,7 @@ defined( 'ABSPATH' ) || exit;
                         $bupr_rating_criteria[] = $bupr_keys;
                     }
                 }
+
 				$member_review_ratings       = get_post_meta( $review->ID, 'profile_star_rating',false);
                 if(!empty($member_review_rating_fields) && !empty($member_review_ratings[0])):                                           
                     foreach($member_review_ratings[0] as $field => $bupr_value){
