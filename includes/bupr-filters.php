@@ -188,7 +188,7 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 						$stars_half = 0;
 				}
 				if(!empty($bupr_star_type) && $bupr_star_type == 'Stars Rating'){
-					for( $i = 1; $i <= $bupr_stars_on; $i++ ){ ?>
+					for( $i = 1; $i <= $stars_on; $i++ ){ ?>
 						<img class="stars" src="<?php echo BUPR_PLUGIN_URL."assets/images/star.png";?>" alt="star"><?php
 					}
 
