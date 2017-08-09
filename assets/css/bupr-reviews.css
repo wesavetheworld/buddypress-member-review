@@ -146,4 +146,7 @@
     border-color:hsl(350, 44%, 86%);
     color:hsl(1, 44%, 46%);
 }
+.bupr-review-description a{
+    margin-left: 10px;
+}
 

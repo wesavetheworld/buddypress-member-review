@@ -40,7 +40,6 @@ if(empty($profile_reviews_per_page)){
 //Gather all the bp member reviews
 $args = array(
     'post_type'         => 'review',
-    'posts_per_page'    => -1,
     'post_status'       => 'publish',
     'posts_per_page'    => $profile_reviews_per_page,
     'paged'             => get_query_var('page',1), 
@@ -144,7 +143,7 @@ $reviews = new WP_Query($args); ?>
                                     $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 20, $more = '… ' ); 
                                     _e($shortexcerpt,BUPR_TEXT_DOMAIN);
                                      ?>
-                                    <br /><a href="<?php echo $url; ?>"><?php _e(' Read More..', BUPR_TEXT_DOMAIN); ?></a>
+                                    <a href="<?php echo $url; ?>"><i><?php _e('read more...', BUPR_TEXT_DOMAIN); ?></i></a>
                                     <div class="bupr-full-description">
                                     <?php  
                                     $bupr_admin_settings  = get_option( 'bupr_admin_settings' );
