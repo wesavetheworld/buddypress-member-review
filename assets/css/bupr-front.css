@@ -37,7 +37,7 @@
 }
 .bupr-criteria-label span{
     display: inline;
-    float: left;
+    clear: left;
     width: 50%;
     height:40px;
 }

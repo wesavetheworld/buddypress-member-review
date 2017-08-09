@@ -12,6 +12,8 @@
 }
 .bp-member-add-form button{
 	width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 .bp-member-add-form p{
 	text-align: left;
@@ -19,8 +21,7 @@
 }
 
 .bp-member-add-form p button{
-    width:30%;
-    min-width:200px;
+    width: 100%;
 }
 .review-types{
     text-align:left!important;
