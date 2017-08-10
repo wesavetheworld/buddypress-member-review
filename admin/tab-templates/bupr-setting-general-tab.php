@@ -72,7 +72,7 @@ foreach( get_users() as $user ){
                         <input type="checkbox" id="bupr-allow-popup" <?php _e($bupr_allow_popup == 'yes' ? 'checked' : '' , BUPR_TEXT_DOMAIN); ?>>
                         <div class="bupr-slider bupr-round"></div>
                     </label>
-                    <p><?php _e("Enable this option,if you want to show <b>Add Review</b> in modal box." , BUPR_TEXT_DOMAIN); ?></p>
+                    <p><?php _e("Enable this option, if you want to show <b>Add Review</b> in modal box." , BUPR_TEXT_DOMAIN); ?></p>
                 </div>
             </div>
 
@@ -124,7 +124,7 @@ foreach( get_users() as $user ){
             <div class="bupr-admin-row">
                 <div class="bupr-admin-col-6 bupr-label">
                     <label for="profile_reviews_per_page">
-                        <?php _e( 'Reviews pages show at most', BUPR_TEXT_DOMAIN );?>
+                        <?php _e( 'Reviews pages show at most', BUPR_TEXT_DOMAIN ); ?>
                     </label>
                 </div>
                 <div class="bupr-admin-col-6">
