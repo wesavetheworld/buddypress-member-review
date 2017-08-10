@@ -33,6 +33,7 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 			add_action( 'admin_footer-edit.php', array( $this, 'bupr_disable_review_title_edit_link' ) );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bupr_remove_edit_bulk_actions' ), 10, 1 );
 			add_action( 'bp_member_header_actions', array( $this, 'bupr_add_review_button_on_member_header' ) );
+			add_action( 'wp_footer', array( $this, 'bupr_review_success_model' ) );
 		}
 
 		/**
@@ -415,6 +416,28 @@ if( !class_exists( 'BUPR_Custom_Hooks' ) ) {
 				);
 			}
 		}
+
+		/**
+		* Actions performed to review submit 
+		*
+		* @since    1.0.0
+		* @access   public
+		* @author   Wbcom Designs
+		*/
+
+		public function bupr_review_success_model() { ?>
+		    <div id="bupr_review_success_msg" class="modal">
+    		<!-- Modal content -->
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <span class="close close-modal">×</span>
+		            </div>
+		            <div class="modal-body">
+		            	<p>Review added successfully</p>
+		            </div>
+	            </div>	
+		    </div>
+		<?php }     
 
 		/**
 		* Actions performed to hide row actions

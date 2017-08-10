@@ -147,7 +147,20 @@
     border-color:hsl(350, 44%, 86%);
     color:hsl(1, 44%, 46%);
 }
-.bupr-review-description a{
+.bupr-review-description a {
     margin-left: 10px;
 }
-
+#bupr_review_success_msg .modal-content {
+    min-height: 200px;
+    background-color: #f0f0f0;
+}
+#bupr_review_success_msg .modal-header {
+    background-color: #f0f0f0;
+}
+#bupr_review_success_msg p {
+    font-weight: 600; 
+    padding-top: 8%;   
+}
+#bupr_review_success_msg .close {
+    color: #000;
+}

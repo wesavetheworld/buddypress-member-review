@@ -265,8 +265,11 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			        		wp_mail( $bupr_to , $bupr_subject, $bupr_message , $bupr_header);
 	
 		        		} 	
-
-		        		_e( '<p class="bupr-success"><b> Successfully! </b>Review added.</p>', BUPR_TEXT_DOMAIN );
+		        		if( $bupr_auto_approve_reviews == 'no' ) {
+		        			_e( ' Thank you for taking the time to write this wonderful review. Your review will display on member profile after moderator approval', BUPR_TEXT_DOMAIN );
+			       		} else {
+			       			_e( ' Thank you for taking the time to write this wonderful review!', BUPR_TEXT_DOMAIN );
+			       		}
 			        }else{
 			        	_e( '<p class="bupr-error"><b>Unsuccessfully! </b> Review added.</p>', BUPR_TEXT_DOMAIN );
 			        }
@@ -278,7 +281,7 @@ if( !class_exists( 'BUPR_AJAX' ) ) {
 			            update_post_meta( $review_id, 'profile_star_rating', $bupr_rated_stars );
 			        endif;
 			    }else{
-			    	_e( '<p class="bupr-error"><b>Sorry! </b> Pleaas select a member.</p>', BUPR_TEXT_DOMAIN );
+			    	_e( '<p class="bupr-error"><b>Sorry! </b> Please select a member.</p>', BUPR_TEXT_DOMAIN );
 			    }
 			    die;
 			}
