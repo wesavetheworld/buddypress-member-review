@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 <div class="bupr-admin-col-8 bupr-label">
                    <input type="text" name="bupr_member_tab_title" id="bupr_member_tab_title" placeholder="Enter Tab title for fron-end." value="<?php _e(!empty($bupr_review_title) ? $bupr_review_title : 'Reviews' , BUPR_TEXT_DOMAIN); ?>">
                     <span class="bupr-display-info">
-                    <?php _e("Change Labels from Buddypress tab and review form." , BUPR_TEXT_DOMAIN); ?>
+                    <?php _e("Change Labels from BuddyPress tab and review form." , BUPR_TEXT_DOMAIN); ?>
                     </span>
                 </div>
             </div>

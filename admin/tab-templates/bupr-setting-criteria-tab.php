@@ -81,7 +81,7 @@ if( isset( $bupr_admin_settings['profile_multi_rating_allowed'] ) ) {
                                     <div class="bupr-slider bupr-round"></div>
                                 </label>
                                 <span>
-                                <?php _e("Enable/Desable criteria fields from review form." , BUPR_TEXT_DOMAIN); ?>
+                                <?php _e("Enable/Disable criteria fields from review form." , BUPR_TEXT_DOMAIN); ?>
                                 </span>
                             </div>
                         </div><?php

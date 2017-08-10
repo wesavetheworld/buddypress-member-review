@@ -102,7 +102,7 @@ foreach( get_users() as $user ){
                         <input type="checkbox" id="bupr_review_email" <?php _e($bupr_allow_email == 'yes' ? 'checked' : '' , BUPR_TEXT_DOMAIN); ?>>
                         <div class="bupr-slider bupr-round"></div>
                     </label>
-                    <p><?php _e("Enable this option, if you want to receive a notification on your email when a member reviews on your profile." , BUPR_TEXT_DOMAIN); ?></p>
+                    <p><?php _e("Enable this option, if you want to member receive an email when adding the review in own profile." , BUPR_TEXT_DOMAIN ); ?></p>
                 </div>
             </div>
 
@@ -117,7 +117,7 @@ foreach( get_users() as $user ){
                         <input type="checkbox" id="bupr_review_notification" <?php _e($bupr_allow_notification == 'yes' ? 'checked' : '' , BUPR_TEXT_DOMAIN); ?>>
                         <div class="bupr-slider bupr-round"></div>
                     </label>
-                    <p><?php _e("Enable this option,if you want to show <b>Notifications</b>." , BUPR_TEXT_DOMAIN); ?></p>
+                    <p><?php _e("Enable this option, if you want to member receive <b>BuddyPress Notification</b> when adding the review in own profile." , BUPR_TEXT_DOMAIN); ?></p>
                 </div>
             </div>
 
@@ -151,7 +151,7 @@ foreach( get_users() as $user ){
                     }
                     ?>
                     </select>
-                    <p><?php _e("This option lets you to choose those members that you don't want to provide review functionality." , BUPR_TEXT_DOMAIN); ?></p>
+                    <p><?php _e("This option lets you choose those members that you don't want to provide review functionality." , BUPR_TEXT_DOMAIN); ?></p>
                 </div>
             </div>
 
