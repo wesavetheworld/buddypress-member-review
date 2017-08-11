@@ -85,14 +85,16 @@ if( !class_exists( 'BUPRScriptsStyles' ) ) {
                 	color:white!important;
                 	border-color:{$bupr_star_color}!important;
 				}
-				.bupr-rating-widget .bupr-square-unselected ,.bupr-square-half{
+				.bupr-rating-widget .bupr-square-unselected{
 					border: 2px solid {$bupr_star_color}!important;
 					background-color:white!important;
 					color:{$bupr_star_color}!important;
 				}
 				.bupr-square-half{
-					box-shadow:14px 0 0 0 {$bupr_star_color} inset !important;
-					text-shadow:
+					border: 2px solid {$bupr_star_color}!important;
+					box-shadow: 14px 0 0 0 {$bupr_star_color} inset !important;
+					color: #fff!important;
+                    text-shadow: -1px 0 {$bupr_star_color}, 0 1px {$bupr_star_color}, 1px 0 {$bupr_star_color}, 0 -1px {$bupr_star_color};
 				}
 				.bupr-pill-selected{
 					border:1px solid {$bupr_star_color}!important;
