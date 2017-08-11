@@ -91,7 +91,7 @@ if( isset( $bupr_admin_settings['profile_multi_rating_allowed'] ) ) {
             <div id="bupr-add-criteria-action" class="bupr-admin-row border <?php echo $bupr_multi_rating_allowed_class;?>">
                 <div class="bupr-admin-col-12 bupr-label">
                     <input id="bupr-btnAdd" type="button" value="Add Criteria" class="button button-secondary"/>
-                    <p><?php _e("This option provide you to add multple rating criteria. By default, no criteria will be shown until you active it." , BUPR_TEXT_DOMAIN); ?></p>
+                    <p><?php _e("This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it." , BUPR_TEXT_DOMAIN); ?></p>
                 </div>
             </div>
             <div class="bupr-admin-row border">
