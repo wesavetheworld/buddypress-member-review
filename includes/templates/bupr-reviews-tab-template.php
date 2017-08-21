@@ -101,7 +101,7 @@ $reviews = new WP_Query($args); ?>
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close close-modal">&times;</span>
-                    <h2>Add Review</h2>
+                    <h2><?php _e("Add " , BUPR_PLUGIN_URL); echo "$bupr_review_title"; ?></h2>
             </div>
             <div class="modal-body">
                 <div class="bupr-bp-member-review-add-block">
@@ -109,7 +109,9 @@ $reviews = new WP_Query($args); ?>
                     if( is_user_logged_in() ) {
                         do_shortcode('[add_profile_review_form]');
                     }else{
-                        _e('<h3> You must login ! </h3>' , BUPR_PLUGIN_URL);
+                        echo "<h3>";
+                        _e(' You must login !' , BUPR_PLUGIN_URL);
+                        echo "</h3>";
                     } 
                     ?>
                 </div>
@@ -131,18 +133,28 @@ $reviews = new WP_Query($args); ?>
                                     bp_displayed_user_avatar( array( 'item_id' =>  $author , 'height' => 96 , 'width' => 96)); ?> 
                                 </div>
                                 <div class="reviewer">
-                                    <?php _e( '<h4>'.bp_core_get_userlink($author).'</4> ', BUPR_TEXT_DOMAIN); ?>
+                                    <h4>
+                                        <?php echo bp_core_get_userlink($author); ?>
+                                    </h4>
                                 </div>
                             </div>
 
                             <div class="bupr-col-9 bupr-members-content"> 
                                 <?php $url = 'view/'.get_the_id();?>                                                              
                                 <div class="bupr-review-description">
-                                    <?php $trimexcerpt  = get_the_excerpt();	
-                                    $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 20, $more = '… ' ); 
-                                    _e($shortexcerpt,BUPR_TEXT_DOMAIN);
+                                    <?php   $trimcontent  = get_the_content(); 
+                                            if( !empty( $trimcontent ) ) {
+                                                $len = strlen( $trimcontent );  
+                                                if( $len > 150 ) {
+                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );  
+                                                    echo $shortexcerpt;    ?>    
+                                                    <a href="<?php echo $url; ?>"><i><?php _e('read more...', BUPR_TEXT_DOMAIN); ?></i></a>
+                                                <?php } else {
+                                                    echo $trimcontent;
+                                                } 
+                                            } 
+                                    
                                      ?>
-                                    <a href="<?php echo $url; ?>"><i><?php _e('read more...', BUPR_TEXT_DOMAIN); ?></i></a>
                                     <div class="bupr-full-description">
                                     <?php  
                                     $bupr_admin_settings  = get_option( 'bupr_admin_settings' );
@@ -239,7 +251,7 @@ $reviews = new WP_Query($args); ?>
                                     'total'  => $reviews->max_num_pages
                                 ) 
                             );
-                        _e("</div>",BUPR_TEXT_DOMAIN);
+                        echo "</div>";
                         ?>
                     </div><?php
                     }
