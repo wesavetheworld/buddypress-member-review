@@ -57,9 +57,9 @@ $reviews = new WP_Query($args); ?>
 
 <div class="bupr-bp-member-reviews-block">
     <div class="reviews-header" id="add_more_review">
-        <p>
-            <?php _e("$bupr_review_title" , BUPR_PLUGIN_URL);?>
+        <p>           
             <?php if( bp_displayed_user_id() !== bp_loggedin_user_id() ) {
+                _e("$bupr_review_title" , BUPR_PLUGIN_URL);
                 if( $bupr_allow_popup == 'yes' ) { ?>
                     <span class="bupr-add-review">
                         <a href="javascript:void(0)" id="bupr-add-review">
@@ -84,9 +84,11 @@ $reviews = new WP_Query($args); ?>
             <?php 
             if( is_user_logged_in() ) {
                 do_shortcode('[add_profile_review_form]');
-            } else {?>
+            } else { ?>
                 <div id="message" class="info">
-                     <?php _e('<p> You must login !. </p>' , BUPR_PLUGIN_URL); ?>
+                    <p>
+                        <?php _e('You must login !.' , BUPR_PLUGIN_URL); ?>
+                    </p>
                 </div>
             <?php }?>
         </div>
