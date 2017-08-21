@@ -23,13 +23,7 @@
 .bupr-col-9 {width: 75%;}
 .bupr-col-10 {width: 83.33%;}
 .bupr-col-11 {width: 91.66%;}
-.bupr-col-12 {width: 100%;}
-
-@media(max-width: 767px){
-    [class*="bupr-col-"] {
-        width: 100%;
-    }
-}    
+.bupr-col-12 {width: 100%;}  
 
 .bupr-review-full-description{
     display: none;
@@ -37,9 +31,18 @@
 }
 .bupr-criteria-label span{
     display: inline;
-    clear: left;
     width: 50%;
     height:40px;
+}
+@media(max-width: 767px){
+    [class*="bupr-col-"] {
+        width: 100%;
+    }
+    .bupr-criteria-label span{
+      display: inline;
+      width: 100%;
+      clear: left;
+    }
 }
 .sel{
     color:red;
@@ -217,4 +220,11 @@
 .success_review_msg p {
   padding: 10px 15px;
   margin: 0;
+}
+
+
+@media( min-width: 768px ) and ( max-width: 1068px ){
+    #bupr-add-review-modal .modal-content {
+      min-width: 380px;
+    }
 }
