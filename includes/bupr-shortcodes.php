@@ -47,7 +47,7 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 		    }
 
 			$login_user = get_current_user_id();
-			$bupr_spinner_src 		= includes_url().'/images/spinner.gif';
+			$bupr_spinner_src 		= includes_url().'images/spinner.gif';
             $bupr_admin_settings 	= get_option( 'bupr_admin_settings' );
             $bupr_general_tab		= get_option(BUPR_GENERAL_OPTIONS);   
 
@@ -68,8 +68,10 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 						'member_name' => $user->data->display_name
 					);
             	}
-			} 
-            ?>
+			}
+            if( !bp_is_members_component() && !bp_is_user() ) { ?>
+            	<div id="message" class="success add_review_msg success_review_msg"><p></p></div>
+            <?php } ?>
 			<form action="" method="POST">
 				<input type="hidden" value="<?php _e(!empty($bupr_star_color) ? $bupr_star_color : '#1fd9e0' , BUPR_TEXT_DOMAIN); ?>" class="bupr-display-rating-color">
 				<input type="hidden" id="reviews_pluginurl" value="<?php echo BUPR_PLUGIN_URL;?>">
@@ -79,7 +81,7 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 					<?php _e( "Fill In Details To Submit $bupr_review_title", BUPR_TEXT_DOMAIN );?>
 				</p>
 
-				<?php if ( 0 === bp_displayed_user_id() ) {?>
+				<?php if ( 0 === bp_displayed_user_id() ) { ?>
 				<p>
 					<select name="bupr_member_id" id="bupr_member_review_id">
 						<option value=""><?php _e( '--Select--', BUPR_TEXT_DOMAIN );?></option>
@@ -96,10 +98,10 @@ if( !class_exists( 'BUPR_Shortcodes' ) ) {
 				<?php }?>
 				<input type="hidden" id="bupr_member_review_id" value="<?php echo bp_displayed_user_id();?>">
 				<p class="bupr-hide-subject">
-					<input name="review-subject" id="review_subject"  type="text" placeholder="Review Subject" ><span class="bupr-fields">*</span>
+					<input name="review-subject" id="review_subject"  type="text" placeholder="<?php _e('Review Subject', BUPR_TEXT_DOMAIN); ?>" ><span class="bupr-fields">*</span>
 				</p>
 				<p>
-					<textarea name="review-desc" id="review_desc" placeholder="Review Description" rows="3" cols="50"></textarea><span class="bupr-fields">*</span>
+					<textarea name="review-desc" id="review_desc" placeholder="<?php _e('Review Description', BUPR_TEXT_DOMAIN ); ?>" rows="3" cols="50"></textarea><span class="bupr-fields">*</span>
 				</p>
 				<?php   
 				if(!empty($profile_rating_fields)){

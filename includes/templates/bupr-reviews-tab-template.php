@@ -58,24 +58,24 @@ $reviews = new WP_Query($args); ?>
 <div class="bupr-bp-member-reviews-block">
     <div class="reviews-header" id="add_more_review">
         <p>
-            <?php _e("$bupr_review_title" , 'bp-group-reviews');?>
+            <?php _e("$bupr_review_title" , BUPR_PLUGIN_URL);?>
             <?php if( bp_displayed_user_id() !== bp_loggedin_user_id() ) {
                 if( $bupr_allow_popup == 'yes' ) { ?>
                     <span class="bupr-add-review">
                         <a href="javascript:void(0)" id="bupr-add-review">
-                            <?php _e('+Add' ,'bp-group-reviews'); ?>
+                            <?php _e('+Add' , BUPR_PLUGIN_URL); ?>
                         </a>
                     </span><?php
                 } else { ?>
                     <span class="bupr-add-review">
                         <a href="javascript:void(0)" id="bupr-add-review-no-popup">
-                            <?php _e('+Add' ,'bp-group-reviews'); ?>
+                            <?php _e('+Add' , BUPR_PLUGIN_URL ); ?>
                         </a>
                     </span><?php
                 }?>
             <?php }?>
         </p>
-        <div id="add_review_msg" class="info isdismiss"></div>
+        <div id="message" class="success add_review_msg"><p></p></div>
     </div>
     <?php 
     if( $bupr_allow_popup == 'no' ) { ?>
@@ -134,10 +134,7 @@ $reviews = new WP_Query($args); ?>
                             </div>
 
                             <div class="bupr-col-9 bupr-members-content"> 
-                                <?php $url = 'view/'.get_the_id();?>
-                                <!-- <div class="review-subject">
-                                    <h4><a href="<?php //echo $url; ?>"><?php the_title(); ?></a></h4>
-                                </div>  -->                                   
+                                <?php $url = 'view/'.get_the_id();?>                                                              
                                 <div class="bupr-review-description">
                                     <?php $trimexcerpt  = get_the_excerpt();	
                                     $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 20, $more = '… ' ); 

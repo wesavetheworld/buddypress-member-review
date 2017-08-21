@@ -1,6 +1,7 @@
 
 jQuery(document).ready(function(){
-    jQuery('#bupr_review_success_msg').hide();
+
+    jQuery('.add_review_msg').hide();
     /*----------------------------------------
     * Add Placeholder in search box
     *-----------------------------------------*/
@@ -11,13 +12,6 @@ jQuery(document).ready(function(){
     *-----------------------------------------*/
     jQuery(document).on('click', '#bupr-add-review', function(){
         jQuery( '#bupr-add-review-modal' ).css( 'display', 'block' );
-    });
-
-    /*----------------------------------------
-    * Display message after review submit
-    *-----------------------------------------*/
-    jQuery(document).on('click', '#bupr_review_success_msg .close', function (){
-        jQuery('#bupr_review_success_msg').hide();
     });
     
     /*-----------------------------------------------------------
@@ -137,18 +131,18 @@ jQuery(document).ready(function(){
             }
         }
     });
-
     
 });
+
 /*----------------------------------------
 * Display message after review submit
 *-----------------------------------------*/
 jQuery( function () {
     if ( jQuery.cookie('response')) {
        // jQuery('.bupr-bp-member-reviews-block').before(jQuery.cookie('response'));
-       // jQuery('.bp-member-add-form').before(jQuery.cookie('response'));
-        jQuery('#bupr_review_success_msg p').text(jQuery.cookie('response'));
-        jQuery('#bupr_review_success_msg').show();
+        jQuery('.add_review_msg p').html(jQuery.cookie('response'));
+        jQuery('.add_review_msg').show();
+        jQuery.cookie('response' , "" , -1);
         jQuery('#review_subject').val('');
         jQuery('#review_desc').val('');
     }
